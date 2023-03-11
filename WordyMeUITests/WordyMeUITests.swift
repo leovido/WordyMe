@@ -1,10 +1,3 @@
-//
-//  WordyMeUITests.swift
-//  WordyMeUITests
-//
-//  Created by Christian Leovido on 10/03/2023.
-//
-
 import XCTest
 
 final class WordyMeUITests: XCTestCase {

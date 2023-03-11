@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - Definition
-struct Definition: Codable {
+struct Definition: Codable, Hashable {
 	let word, phonetic: String?
 	let phonetics: [Phonetic]
 	let origin: String?
@@ -9,7 +9,7 @@ struct Definition: Codable {
 }
 
 // MARK: - Meaning
-struct Meaning: Identifiable, Codable {
+struct Meaning: Identifiable, Hashable, Codable {
 	let id: UUID = UUID()
 	
 	let partOfSpeech: String?
@@ -17,7 +17,7 @@ struct Meaning: Identifiable, Codable {
 }
 
 // MARK: - DefinitionElement
-struct DefinitionElement: Identifiable, Codable {
+struct DefinitionElement: Identifiable, Hashable, Codable {
 	let id: UUID = UUID()
 	
 	let definition, example: String?
@@ -26,40 +26,11 @@ struct DefinitionElement: Identifiable, Codable {
 
 
 // MARK: - Phonetic
-struct Phonetic: Codable {
+struct Phonetic: Codable, Hashable {
 	let text, audio: String?
 }
 
 // MARK: - Encode/decode helpers
-
-class JSONNull: Codable, Hashable {
-	
-	public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
-		return true
-	}
-	
-	public var hashValue: Int {
-		return 0
-	}
-	
-	public func hash(into hasher: inout Hasher) {
-		// No-op
-	}
-	
-	public init() {}
-	
-	public required init(from decoder: Decoder) throws {
-		let container = try decoder.singleValueContainer()
-		if !container.decodeNil() {
-			throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
-		}
-	}
-	
-	public func encode(to encoder: Encoder) throws {
-		var container = encoder.singleValueContainer()
-		try container.encodeNil()
-	}
-}
 
 class JSONCodingKey: CodingKey {
 	let key: String
@@ -108,9 +79,6 @@ class JSONAny: Codable {
 		if let value = try? container.decode(String.self) {
 			return value
 		}
-		if container.decodeNil() {
-			return JSONNull()
-		}
 		throw decodingError(forCodingPath: container.codingPath)
 	}
 	
@@ -126,11 +94,6 @@ class JSONAny: Codable {
 		}
 		if let value = try? container.decode(String.self) {
 			return value
-		}
-		if let value = try? container.decodeNil() {
-			if value {
-				return JSONNull()
-			}
 		}
 		if var container = try? container.nestedUnkeyedContainer() {
 			return try decodeArray(from: &container)
@@ -153,11 +116,6 @@ class JSONAny: Codable {
 		}
 		if let value = try? container.decode(String.self, forKey: key) {
 			return value
-		}
-		if let value = try? container.decodeNil(forKey: key) {
-			if value {
-				return JSONNull()
-			}
 		}
 		if var container = try? container.nestedUnkeyedContainer(forKey: key) {
 			return try decodeArray(from: &container)
@@ -196,8 +154,6 @@ class JSONAny: Codable {
 				try container.encode(value)
 			} else if let value = value as? String {
 				try container.encode(value)
-			} else if value is JSONNull {
-				try container.encodeNil()
 			} else if let value = value as? [Any] {
 				var container = container.nestedUnkeyedContainer()
 				try encode(to: &container, array: value)
@@ -221,8 +177,6 @@ class JSONAny: Codable {
 				try container.encode(value, forKey: key)
 			} else if let value = value as? String {
 				try container.encode(value, forKey: key)
-			} else if value is JSONNull {
-				try container.encodeNil(forKey: key)
 			} else if let value = value as? [Any] {
 				var container = container.nestedUnkeyedContainer(forKey: key)
 				try encode(to: &container, array: value)
@@ -244,8 +198,6 @@ class JSONAny: Codable {
 			try container.encode(value)
 		} else if let value = value as? String {
 			try container.encode(value)
-		} else if value is JSONNull {
-			try container.encodeNil()
 		} else {
 			throw encodingError(forValue: value, codingPath: container.codingPath)
 		}

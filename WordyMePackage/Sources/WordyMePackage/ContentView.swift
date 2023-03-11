@@ -2,21 +2,25 @@ import SwiftUI
 import CoreData
 import Speech
 
-struct ContentView: View {
+public struct ContentView: View {
 	@Environment(\.managedObjectContext) private var viewContext
 	@StateObject var speechRecognizer = SpeechRecognizer()
-
+	
 	@State private var showingAlert = false
 	@State private var newWord = ""
 	@State private var isRecording = false
 	@State private var isPressing = false
-
+	
 	@FetchRequest(
 		sortDescriptors: [NSSortDescriptor(keyPath: \Item.word, ascending: true)],
 		animation: .default)
 	private var items: FetchedResults<Item>
 	
-	var body: some View {
+	public init() {
+		
+	}
+	
+	public var body: some View {
 		NavigationView {
 			VStack {
 				List {
@@ -91,7 +95,7 @@ struct ContentView: View {
 	private func addNewWord(newWord: String) {
 		guard !newWord.isEmpty else {
 			haptic(type: .error)
-
+			
 			return
 		}
 		withAnimation {
@@ -99,7 +103,7 @@ struct ContentView: View {
 			newItem.timestamp = Date()
 			newItem.word = newWord
 			self.newWord = ""
-
+			
 			do {
 				try viewContext.save()
 			} catch {
@@ -139,3 +143,4 @@ struct ContentView_Previews: PreviewProvider {
 		ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 	}
 }
+

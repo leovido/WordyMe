@@ -1,10 +1,3 @@
-//
-//  WordyMeTests.swift
-//  WordyMeTests
-//
-//  Created by Christian Leovido on 10/03/2023.
-//
-
 import XCTest
 @testable import WordyMe
 

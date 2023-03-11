@@ -1,10 +1,3 @@
-//
-//  WordView.swift
-//  WordyMe
-//
-//  Created by Christian Leovido on 11/03/2023.
-//
-
 import SwiftUI
 
 struct WordView: View {
@@ -93,31 +86,29 @@ struct WordView: View {
 	}
 }
 
-struct WordView_Previews: PreviewProvider {
-	static let context = PersistenceController.preview.container.viewContext
-	
-	
-	
-	static var previews: some View {
-		let item = Item(context: context)
-		item.word = "Word"
-		
-		return NavigationStack {
-			WordView(item: item,
-							 definition: [
-								Definition(
-									word: "word",
-									phonetic: "word",
-									phonetics: [.init(text: "word",
-																		audio: nil)],
-									origin: "origin",
-									meanings: [.init(partOfSpeech: "part of speech", definitions: [
-										.init(
-											definition: " a single distinct meaningful element of speech or writing, used with others (or sometimes alone) to form a sentence and typically shown with a space on either side when written or printed",
-											example: "I don't like the word ‘unofficial’ | so many words for so few ideas.",
-											synonyms: ["Synonyms"],
-											antonyms: ["Antonyms"])])])])
-		}
-	}
-}
+//struct WordView_Previews: PreviewProvider {
+//	static let context = PersistenceController.preview.container.viewContext
+//	
+//	static var previews: some View {
+//		let item = Item(context: context)
+//		item.word = "Word"
+//		
+//		return NavigationStack {
+//			WordView(item: item,
+//							 definition: [
+//								Definition(
+//									word: "word",
+//									phonetic: "word",
+//									phonetics: [.init(text: "word",
+//																		audio: nil)],
+//									origin: "origin",
+//									meanings: [.init(partOfSpeech: "part of speech", definitions: [
+//										.init(
+//											definition: " a single distinct meaningful element of speech or writing, used with others (or sometimes alone) to form a sentence and typically shown with a space on either side when written or printed",
+//											example: "I don't like the word ‘unofficial’ | so many words for so few ideas.",
+//											synonyms: ["Synonyms"],
+//											antonyms: ["Antonyms"])])])])
+//		}
+//	}
+//}
 
