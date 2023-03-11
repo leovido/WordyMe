@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B93A267B29BC00AC0046F648 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A267A29BC00AC0046F648 /* Constants.swift */; };
+		B93A267D29BC02130046F648 /* DefinitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A267C29BC02130046F648 /* DefinitionModel.swift */; };
+		B93A267F29BC6AF60046F648 /* WordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A267E29BC6AF60046F648 /* WordView.swift */; };
+		B93A268429BC74A20046F648 /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93A268329BC74A20046F648 /* ExampleView.swift */; };
 		B93DC40729BAEBB500D08CAF /* WordyMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC40629BAEBB500D08CAF /* WordyMeApp.swift */; };
 		B93DC40929BAEBB500D08CAF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC40829BAEBB500D08CAF /* ContentView.swift */; };
 		B93DC40B29BAEBB600D08CAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93DC40A29BAEBB600D08CAF /* Assets.xcassets */; };
@@ -16,6 +20,7 @@
 		B93DC41E29BAEBB600D08CAF /* WordyMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC41D29BAEBB600D08CAF /* WordyMeTests.swift */; };
 		B93DC42829BAEBB600D08CAF /* WordyMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC42729BAEBB600D08CAF /* WordyMeUITests.swift */; };
 		B93DC42A29BAEBB600D08CAF /* WordyMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC42929BAEBB600D08CAF /* WordyMeUITestsLaunchTests.swift */; };
+		B93DC43729BAF74D00D08CAF /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC43629BAF74D00D08CAF /* SpeechRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B93A267A29BC00AC0046F648 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B93A267C29BC02130046F648 /* DefinitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefinitionModel.swift; sourceTree = "<group>"; };
+		B93A267E29BC6AF60046F648 /* WordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordView.swift; sourceTree = "<group>"; };
+		B93A268329BC74A20046F648 /* ExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		B93DC40329BAEBB500D08CAF /* WordyMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordyMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B93DC40629BAEBB500D08CAF /* WordyMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyMeApp.swift; sourceTree = "<group>"; };
 		B93DC40829BAEBB500D08CAF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -49,6 +58,7 @@
 		B93DC42329BAEBB600D08CAF /* WordyMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WordyMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B93DC42729BAEBB600D08CAF /* WordyMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyMeUITests.swift; sourceTree = "<group>"; };
 		B93DC42929BAEBB600D08CAF /* WordyMeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyMeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B93DC43629BAF74D00D08CAF /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +109,18 @@
 		B93DC40529BAEBB500D08CAF /* WordyMe */ = {
 			isa = PBXGroup;
 			children = (
-				B93DC40629BAEBB500D08CAF /* WordyMeApp.swift */,
-				B93DC40829BAEBB500D08CAF /* ContentView.swift */,
-				B93DC40A29BAEBB600D08CAF /* Assets.xcassets */,
-				B93DC40F29BAEBB600D08CAF /* Persistence.swift */,
 				B93DC41429BAEBB600D08CAF /* Info.plist */,
-				B93DC41129BAEBB600D08CAF /* WordyMe.xcdatamodeld */,
+				B93A267A29BC00AC0046F648 /* Constants.swift */,
+				B93DC40829BAEBB500D08CAF /* ContentView.swift */,
+				B93A267C29BC02130046F648 /* DefinitionModel.swift */,
+				B93DC40F29BAEBB600D08CAF /* Persistence.swift */,
+				B93DC43629BAF74D00D08CAF /* SpeechRecognizer.swift */,
+				B93A268329BC74A20046F648 /* ExampleView.swift */,
+				B93A267E29BC6AF60046F648 /* WordView.swift */,
+				B93DC40629BAEBB500D08CAF /* WordyMeApp.swift */,
+				B93DC40A29BAEBB600D08CAF /* Assets.xcassets */,
 				B93DC40C29BAEBB600D08CAF /* Preview Content */,
+				B93DC41129BAEBB600D08CAF /* WordyMe.xcdatamodeld */,
 			);
 			path = WordyMe;
 			sourceTree = "<group>";
@@ -151,6 +166,8 @@
 			dependencies = (
 			);
 			name = WordyMe;
+			packageProductDependencies = (
+			);
 			productName = WordyMe;
 			productReference = B93DC40329BAEBB500D08CAF /* WordyMe.app */;
 			productType = "com.apple.product-type.application";
@@ -223,6 +240,8 @@
 				Base,
 			);
 			mainGroup = B93DC3FA29BAEBB500D08CAF;
+			packageReferences = (
+			);
 			productRefGroup = B93DC40429BAEBB500D08CAF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -265,10 +284,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B93A267F29BC6AF60046F648 /* WordView.swift in Sources */,
+				B93DC43729BAF74D00D08CAF /* SpeechRecognizer.swift in Sources */,
+				B93A267D29BC02130046F648 /* DefinitionModel.swift in Sources */,
 				B93DC41029BAEBB600D08CAF /* Persistence.swift in Sources */,
 				B93DC40929BAEBB500D08CAF /* ContentView.swift in Sources */,
+				B93A268429BC74A20046F648 /* ExampleView.swift in Sources */,
 				B93DC40729BAEBB500D08CAF /* WordyMeApp.swift in Sources */,
 				B93DC41329BAEBB600D08CAF /* WordyMe.xcdatamodeld in Sources */,
+				B93A267B29BC00AC0046F648 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +454,9 @@
 				DEVELOPMENT_TEAM = KHVGXZ39NW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordyMe/Info.plist;
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "$(MARKETING_VERSION)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -459,6 +486,9 @@
 				DEVELOPMENT_TEAM = KHVGXZ39NW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordyMe/Info.plist;
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "$(MARKETING_VERSION)";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
