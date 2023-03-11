@@ -52,17 +52,17 @@ struct ContentView: View {
 				}
 				.navigationTitle(Text("My words"))
 				
-				Button {} label: {
+				Button(action: {
+					haptic(type: .success)
+				}, label: {
 					Image(systemName: "mic.circle")
 						.resizable()
 						.frame(width: 100, height: 100)
 						.accessibilityLabel(isRecording ? "with transcription" : "without transcription")
-				}
+				})
+				
 				.background(.clear)
-				.onLongPressGesture(minimumDuration: 0.2, perform: {
-					let generator = UINotificationFeedbackGenerator()
-					generator.notificationOccurred(.success)
-				}, onPressingChanged: { isPressing in
+				.onLongPressGesture(minimumDuration: 0.2, perform: {}, onPressingChanged: { isPressing in
 					self.isPressing = isPressing
 					
 					if !isPressing {
@@ -83,8 +83,15 @@ struct ContentView: View {
 		}
 	}
 	
+	func haptic(type: UINotificationFeedbackGenerator.FeedbackType) {
+		let generator = UINotificationFeedbackGenerator()
+		generator.notificationOccurred(type)
+	}
+	
 	private func addNewWord(newWord: String) {
 		guard !newWord.isEmpty else {
+			haptic(type: .error)
+
 			return
 		}
 		withAnimation {
