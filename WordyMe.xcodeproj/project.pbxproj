@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		471EA41529BFE588009A6E4F /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 471EA41429BFE588009A6E4F /* AppFeature */; };
+		471EA41729BFE59C009A6E4F /* WordyMePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 471EA41629BFE59C009A6E4F /* WordyMePackage */; };
 		47D3198429BE5E6700F75A20 /* BrainLibraryFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 47D3198329BE5E6700F75A20 /* BrainLibraryFeature */; };
 		B93DC40729BAEBB500D08CAF /* WordyMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC40629BAEBB500D08CAF /* WordyMeApp.swift */; };
 		B93DC40B29BAEBB600D08CAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93DC40A29BAEBB600D08CAF /* Assets.xcassets */; };
@@ -53,6 +55,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				47D3198429BE5E6700F75A20 /* BrainLibraryFeature in Frameworks */,
+				471EA41729BFE59C009A6E4F /* WordyMePackage in Frameworks */,
+				471EA41529BFE588009A6E4F /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +160,8 @@
 			name = WordyMe;
 			packageProductDependencies = (
 				47D3198329BE5E6700F75A20 /* BrainLibraryFeature */,
+				471EA41429BFE588009A6E4F /* AppFeature */,
+				471EA41629BFE59C009A6E4F /* WordyMePackage */,
 			);
 			productName = WordyMe;
 			productReference = B93DC40329BAEBB500D08CAF /* WordyMe.app */;
@@ -608,6 +614,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		471EA41429BFE588009A6E4F /* AppFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppFeature;
+		};
+		471EA41629BFE59C009A6E4F /* WordyMePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WordyMePackage;
+		};
 		47D3198329BE5E6700F75A20 /* BrainLibraryFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BrainLibraryFeature;

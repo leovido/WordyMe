@@ -1,7 +1,8 @@
 import SwiftUI
-import WordyMePackage
 import AppFeature
+import WordyMePackage
 import BrainLibraryFeature
+import ComposableArchitecture
 
 //final class AppDelegate: NSObject, UIApplicationDelegate {
 //	let store = Store(
@@ -46,17 +47,18 @@ struct WordyMeApp: App {
 	var body: some Scene {
 		WindowGroup {
 			TabView {
-					WithViewStore(store) { viewStore in
-				MainWordView(viewStore: viewStore)
-					.environment(\.managedObjectContext, persistenceController.container.viewContext)
-					.tabItem {
-						Label("Words", systemImage: "text.bubble")
-					}
-				
-				BrainView()
-					.tabItem {
-						Label("Brain", systemImage: "books.vertical")
-					}
+				WithViewStore(store) { viewStore in
+					MainWordView(viewStore: viewStore)
+						.environment(\.managedObjectContext, persistenceController.container.viewContext)
+						.tabItem {
+							Label("Words", systemImage: "text.bubble")
+						}
+					
+					BrainView()
+						.tabItem {
+							Label("Brain", systemImage: "books.vertical")
+						}
+				}
 			}
 		}
 	}
