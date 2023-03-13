@@ -1,8 +1,9 @@
 import SwiftUI
 import CoreData
 import Speech
+import ComposableArchitecture
 
-public struct ContentView: View {
+public struct MainWordView: View {
 	@Environment(\.managedObjectContext) private var viewContext
 	@StateObject var speechRecognizer = SpeechRecognizer()
 	
@@ -16,8 +17,10 @@ public struct ContentView: View {
 		animation: .default)
 	private var items: FetchedResults<Item>
 	
-	public init() {
-		
+	public let viewStore: ViewStore<WordReducer.State, WordReducer.Action>
+	
+	public init(viewStore: ViewStore<WordReducer.State, WordReducer.Action>) {
+		self.viewStore = viewStore
 	}
 	
 	public var body: some View {
@@ -139,8 +142,13 @@ private let itemFormatter: DateFormatter = {
 }()
 
 struct ContentView_Previews: PreviewProvider {
+	static let store: StoreOf<WordReducer> = .init(initialState: WordReducer.State(), reducer: WordReducer())
+	
 	static var previews: some View {
-		ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+		WithViewStore(store) { viewStore in
+			MainWordView(viewStore: viewStore)
+				.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+		}
 	}
 }
 

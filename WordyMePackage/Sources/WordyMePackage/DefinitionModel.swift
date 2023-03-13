@@ -1,33 +1,41 @@
 import Foundation
 
 // MARK: - Definition
-struct Definition: Codable, Hashable {
-	let word, phonetic: String?
-	let phonetics: [Phonetic]
-	let origin: String?
-	let meanings: [Meaning]
+public struct Definition: Codable, Hashable {
+	public let word, phonetic: String?
+	public let phonetics: [Phonetic]
+	public let origin: String?
+	public let meanings: [Meaning]
+	
+	public init(word: String?, phonetic: String?, phonetics: [Phonetic], origin: String?, meanings: [Meaning]) {
+		self.word = word
+		self.phonetic = phonetic
+		self.phonetics = phonetics
+		self.origin = origin
+		self.meanings = meanings
+	}
 }
 
 // MARK: - Meaning
-struct Meaning: Identifiable, Hashable, Codable {
-	let id: UUID = UUID()
+public struct Meaning: Identifiable, Hashable, Codable {
+	public let id: UUID = UUID()
 	
-	let partOfSpeech: String?
-	let definitions: [DefinitionElement]
+	public let partOfSpeech: String?
+	public let definitions: [DefinitionElement]
 }
 
 // MARK: - DefinitionElement
-struct DefinitionElement: Identifiable, Hashable, Codable {
-	let id: UUID = UUID()
+public struct DefinitionElement: Identifiable, Hashable, Codable {
+	public let id: UUID = UUID()
 	
-	let definition, example: String?
-	let synonyms, antonyms: [String]
+	public let definition, example: String?
+	public let synonyms, antonyms: [String]
 }
 
 
 // MARK: - Phonetic
-struct Phonetic: Codable, Hashable {
-	let text, audio: String?
+public struct Phonetic: Codable, Hashable {
+	public let text, audio: String?
 }
 
 // MARK: - Encode/decode helpers

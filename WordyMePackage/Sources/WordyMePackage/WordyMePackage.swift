@@ -1,20 +1,26 @@
 import ComposableArchitecture
 
-struct Feature: ReducerProtocol {
-	struct State: Equatable {
-		var word: Definition
+public struct WordReducer: ReducerProtocol {
+	public init() {}
+	
+	public struct State: Equatable {
+		public var word: Definition
+		
+		public init(word: Definition = .init(word: nil, phonetic: nil, phonetics: [], origin: nil, meanings: [])) {
+			self.word = word
+		}
 	}
 	
-	enum Action: Equatable {
+	public enum Action: Equatable {
 		case wordResponse(TaskResult<Definition>)
 	}
 	
-	func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
+	public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
 		switch action {
 			case let .wordResponse(.success(word)):
 				state.word = word
 				return .none
-			case let .wordResponse(.failure(error)):
+			case .wordResponse(.failure(_)):
 				return .none
 		}
 	}

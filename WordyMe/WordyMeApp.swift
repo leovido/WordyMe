@@ -41,11 +41,14 @@ struct WordyMeApp: App {
 	@UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 	let persistenceController = PersistenceController.shared
 	
+	let store: StoreOf<WordReducer> = .init(initialState: WordReducer.State(), reducer: WordReducer())
+	
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
-				.environment(\.managedObjectContext, persistenceController.container.viewContext)
+			WithViewStore(store) { viewStore in
+				MainWordView(viewStore: viewStore)
+					.environment(\.managedObjectContext, persistenceController.container.viewContext)
+			}
 		}
 	}
 }
-
