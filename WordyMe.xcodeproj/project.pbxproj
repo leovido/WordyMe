@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B93A268A29BCC8340046F648 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = B93A268929BCC8340046F648 /* AppFeature */; };
+		47D3198429BE5E6700F75A20 /* BrainLibraryFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 47D3198329BE5E6700F75A20 /* BrainLibraryFeature */; };
 		B93DC40729BAEBB500D08CAF /* WordyMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC40629BAEBB500D08CAF /* WordyMeApp.swift */; };
 		B93DC40B29BAEBB600D08CAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93DC40A29BAEBB600D08CAF /* Assets.xcassets */; };
 		B93DC40E29BAEBB600D08CAF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93DC40D29BAEBB600D08CAF /* Preview Assets.xcassets */; };
@@ -52,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B93A268A29BCC8340046F648 /* AppFeature in Frameworks */,
+				47D3198429BE5E6700F75A20 /* BrainLibraryFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +155,7 @@
 			);
 			name = WordyMe;
 			packageProductDependencies = (
-				B93A268929BCC8340046F648 /* AppFeature */,
+				47D3198329BE5E6700F75A20 /* BrainLibraryFeature */,
 			);
 			productName = WordyMe;
 			productReference = B93DC40329BAEBB500D08CAF /* WordyMe.app */;
@@ -432,7 +432,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WordyMe/Preview Content\"";
-				DEVELOPMENT_TEAM = KHVGXZ39NW;
+				DEVELOPMENT_TEAM = HL92L2PJSU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordyMe/Info.plist;
@@ -449,7 +449,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.WordyMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.WordyMeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -465,7 +465,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WordyMe/Preview Content\"";
-				DEVELOPMENT_TEAM = KHVGXZ39NW;
+				DEVELOPMENT_TEAM = HL92L2PJSU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordyMe/Info.plist;
@@ -482,7 +482,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.WordyMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.WordyMeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -608,9 +608,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B93A268929BCC8340046F648 /* AppFeature */ = {
+		47D3198329BE5E6700F75A20 /* BrainLibraryFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = AppFeature;
+			productName = BrainLibraryFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
