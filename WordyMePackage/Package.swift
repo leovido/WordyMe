@@ -18,6 +18,9 @@ let package = Package(
 		.library(
 			name: "BrainLibraryFeature",
 			targets: ["BrainLibraryFeature"]),
+		.library(
+			name: "StatsFeature",
+			targets: ["StatsFeature"]),
 	],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.52.0"),
@@ -34,12 +37,15 @@ let package = Package(
 		.target(
 			name: "AppFeature",
 			dependencies: [
+				"StatsFeature",
 				"WordyMePackage"
 			]),
 		.target(
+			name: "StatsFeature",
+			dependencies: [ ]),
+		.target(
 			name: "BrainLibraryFeature",
-			dependencies: [
-			]),
+			dependencies: [ ]),
 		.testTarget(
 			name: "WordyMePackageTests",
 			dependencies: ["WordyMePackage"])

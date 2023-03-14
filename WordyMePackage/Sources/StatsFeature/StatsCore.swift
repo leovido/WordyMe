@@ -1,42 +1,40 @@
 import ComposableArchitecture
 import Foundation
-import WordyMePackage
-import StatsFeature
 
-public struct AppReducer: ReducerProtocol {
+public struct Stats: Identifiable, Codable, Hashable {
+	public var id: UUID = .init()
+	
+	var name: String
+	var amount: Double
+}
+
+public struct StatsReducer: ReducerProtocol {
 	public init() {}
-
+	
 	public struct State {
-		var string: String
-		var wordState: WordReducer.State
+		var stats: [Stats]
 		
-		public init(string: String = "",
-								wordState: WordReducer.State = .init()) {
-			self.string = string
-			self.wordState = wordState
+		public init(stats: [Stats] = []) {
+			self.stats = stats
 		}
 	}
 	
 	public enum Action: Equatable {
-		case something
-		case appDelegate(AppDelegateReducer.Action)
-		case wordFeature(WordReducer.Action)
-		case statsFeature(StatsReducer.Action)
+		case onAppear
+		case fetchStats
+		case receiveStats(TaskResult<[Stats]>)
 	}
 	
 	public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
 		switch action {
-			case .appDelegate(.didFinishLaunching):
+			case .fetchStats:
 				return .none
-			case .appDelegate:
+			case let .receiveStats(.success(tasks)):
 				return .none
-			case .something:
+			case let .receiveStats(.failure(error)):
 				return .none
-			case .wordFeature(let action):
-				return .none
-			case .statsFeature(let action):
-				return .none
-			case .wordFeature(_):
+			case .onAppear:
+				state.stats = [.init(name: "Total words", amount: 39)]
 				return .none
 		}
 	}

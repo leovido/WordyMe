@@ -42,16 +42,22 @@ struct WordyMeApp: App {
 //	@UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 	let persistenceController = PersistenceController.shared
 	
-	let store: StoreOf<WordReducer> = .init(initialState: WordReducer.State(), reducer: WordReducer())
+	let store: Store<AppReducer.State, AppReducer.Action> = .init(
+		initialState: AppReducer.State(),
+		reducer: AppReducer()
+	)
 	
 	var body: some Scene {
 		WindowGroup {
 			TabView {
 				WithViewStore(store) { viewStore in
-					MainWordView(viewStore: viewStore)
+					MainWordView(store: store.scope(state: {$0.wordState}, action: AppReducer.Action.wordFeature))
 						.environment(\.managedObjectContext, persistenceController.container.viewContext)
 						.tabItem {
 							Label("Words", systemImage: "text.bubble")
+						}
+						.tabItem {
+							Label("Stats", systemImage: "chart.bar")
 						}
 					
 					BrainView()

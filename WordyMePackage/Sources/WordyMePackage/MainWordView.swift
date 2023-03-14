@@ -4,23 +4,33 @@ import Speech
 import ComposableArchitecture
 
 public struct MainWordView: View {
+//	struct ViewState: Equatable {
+//		var showingAlert: Bool = false
+//		var newWord: String = ""
+//		var isRecording: Bool = false
+//		var isPressing: Bool = false
+//
+//		init(showingAlert: Bool = false, newWord: String = "", isRecording: Bool = false, isPressing: Bool = false) {
+//			self.showingAlert = showingAlert
+//			self.newWord = newWord
+//			self.isRecording = isRecording
+//			self.isPressing = isPressing
+//		}
+//	}
 	@Environment(\.managedObjectContext) private var viewContext
 	@StateObject var speechRecognizer = SpeechRecognizer()
-	
-	@State private var showingAlert = false
-	@State private var newWord = ""
-	@State private var isRecording = false
-	@State private var isPressing = false
 	
 	@FetchRequest(
 		sortDescriptors: [NSSortDescriptor(keyPath: \Item.word, ascending: true)],
 		animation: .default)
 	private var items: FetchedResults<Item>
 	
-	public let viewStore: ViewStore<WordReducer.State, WordReducer.Action>
-	
-	public init(viewStore: ViewStore<WordReducer.State, WordReducer.Action>) {
-		self.viewStore = viewStore
+	public let store: StoreOf<WordReducer>
+	@ObservedObject var viewStore: ViewStore<WordReducer.State, WordReducer.Action>
+
+	public init(store: StoreOf<WordReducer>) {
+		self.store = store
+		self.viewStore = ViewStore.init(.init(initialState: WordReducer.State(), reducer: WordReducer()))
 	}
 	
 	public var body: some View {
@@ -43,14 +53,14 @@ public struct MainWordView: View {
 					}
 					ToolbarItem {
 						Button(action: {
-							showingAlert.toggle()
+							viewStore.send(.addNewItem)
 						}) {
 							Label("Add Item", systemImage: "plus")
 						}
-						.alert("Enter your word", isPresented: $showingAlert) {
-							TextField("Enter your word", text: $newWord)
+						.alert("Enter your word", isPresented: viewStore.binding(get: \.showingAlert, send: WordReducer.Action.isAlertPresented)) {
+							TextField("Enter your word", text: viewStore.binding(get: \.newWord, send: WordReducer.Action.setWord))
 							Button("OK", action: {
-								addNewWord(newWord: newWord)
+								addNewWord(newWord: viewStore.newWord)
 							})
 						} message: {
 							Text("This word will be store in the app.")
@@ -65,22 +75,22 @@ public struct MainWordView: View {
 					Image(systemName: "mic.circle")
 						.resizable()
 						.frame(width: 100, height: 100)
-						.accessibilityLabel(isRecording ? "with transcription" : "without transcription")
+						.accessibilityLabel(viewStore.isRecording ? "with transcription" : "without transcription")
 				})
 				
 				.background(.clear)
 				.onLongPressGesture(minimumDuration: 0.2, perform: {}, onPressingChanged: { isPressing in
-					self.isPressing = isPressing
+					self.viewStore.send(.recordingButtonPressed(isPressing))
 					
 					if !isPressing {
 						speechRecognizer.stopTranscribing()
-						isRecording = false
+						viewStore.send(.recordingUpdate(false))
 						
 						self.addNewWord(newWord: speechRecognizer.transcript)
 					}
 					
-					if self.isPressing {
-						isRecording = true
+					if self.viewStore.isPressing {
+						viewStore.send(.recordingUpdate(true))
 						
 						speechRecognizer.reset()
 						speechRecognizer.transcribe()
@@ -105,7 +115,7 @@ public struct MainWordView: View {
 			let newItem = Item(context: viewContext)
 			newItem.timestamp = Date()
 			newItem.word = newWord
-			self.newWord = ""
+			self.viewStore.send(.updateNewWord(newWord))
 			
 			do {
 				try viewContext.save()
@@ -142,13 +152,14 @@ private let itemFormatter: DateFormatter = {
 }()
 
 struct ContentView_Previews: PreviewProvider {
-	static let store: StoreOf<WordReducer> = .init(initialState: WordReducer.State(), reducer: WordReducer())
+	static let store: StoreOf<WordReducer> = .init(initialState: WordReducer.State(word: .init(word: "Word", phonetic: "phonetic", phonetics: [], origin: nil, meanings: [.init(partOfSpeech: "Part of speech", definitions: [])]), showingAlert: false, newWord: "", isRecording: false, isPressing: false), reducer: WordReducer())
 	
 	static var previews: some View {
-		WithViewStore(store) { viewStore in
-			MainWordView(viewStore: viewStore)
-				.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-		}
+		fatalError()
+//		WithViewStore(store) { viewStore in
+//			MainWordView(viewStore: viewStore)
+//				.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+		
 	}
 }
 
