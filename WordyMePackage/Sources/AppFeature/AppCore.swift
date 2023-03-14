@@ -6,9 +6,9 @@ import StatsFeature
 public struct AppReducer: ReducerProtocol {
 	public init() {}
 
-	public struct State {
+	public struct State: Hashable {
 		var string: String
-		var wordState: WordReducer.State
+		public var wordState: WordReducer.State
 		
 		public init(string: String = "",
 								wordState: WordReducer.State = .init()) {

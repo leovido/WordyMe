@@ -39,19 +39,25 @@ import ComposableArchitecture
 
 @main
 struct WordyMeApp: App {
+	let store: Store<AppReducer.State, AppReducer.Action>
+	
+	init() {
+		self.store = Store(
+			initialState: AppReducer.State(),
+			reducer: AppReducer()
+		)
+	}
+	
 //	@UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 	let persistenceController = PersistenceController.shared
 	
-	let store: Store<AppReducer.State, AppReducer.Action> = .init(
-		initialState: AppReducer.State(),
-		reducer: AppReducer()
-	)
+	
 	
 	var body: some Scene {
 		WindowGroup {
 			TabView {
 				WithViewStore(store) { viewStore in
-					MainWordView(store: store.scope(state: {$0.wordState}, action: AppReducer.Action.wordFeature))
+					MainWordView(store: store.scope(state: { $0.wordState }, action: AppReducer.Action.wordFeature))
 						.environment(\.managedObjectContext, persistenceController.container.viewContext)
 						.tabItem {
 							Label("Words", systemImage: "text.bubble")

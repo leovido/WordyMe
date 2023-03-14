@@ -3,7 +3,7 @@ import ComposableArchitecture
 public struct WordReducer: ReducerProtocol {
 	public init() {}
 	
-	public struct State: Equatable {
+	public struct State: Hashable {
 		public var word: Definition
 		var showingAlert: Bool = false
 		var newWord: String = ""
