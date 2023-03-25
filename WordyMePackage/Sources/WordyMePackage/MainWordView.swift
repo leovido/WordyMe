@@ -1,25 +1,10 @@
 import SwiftUI
 import CoreData
-import Speech
 import ComposableArchitecture
 
 public struct MainWordView: View {
-//	struct ViewState: Equatable {
-//		var showingAlert: Bool = false
-//		var newWord: String = ""
-//		var isRecording: Bool = false
-//		var isPressing: Bool = false
-//
-//		init(showingAlert: Bool = false, newWord: String = "", isRecording: Bool = false, isPressing: Bool = false) {
-//			self.showingAlert = showingAlert
-//			self.newWord = newWord
-//			self.isRecording = isRecording
-//			self.isPressing = isPressing
-//		}
-//	}
 	@Environment(\.managedObjectContext) private var viewContext
-	@StateObject var speechRecognizer = SpeechRecognizer()
-	
+
 	@FetchRequest(
 		sortDescriptors: [NSSortDescriptor(keyPath: \Item.word, ascending: true)],
 		animation: .default)
@@ -83,17 +68,14 @@ public struct MainWordView: View {
 					self.viewStore.send(.recordingButtonPressed(isPressing))
 					
 					if !isPressing {
-						speechRecognizer.stopTranscribing()
-						viewStore.send(.recordingUpdate(false))
-						
-						self.addNewWord(newWord: speechRecognizer.transcript)
+						viewStore.send(.stopTranscribing)
 					}
 					
 					if self.viewStore.isPressing {
 						viewStore.send(.recordingUpdate(true))
 						
-						speechRecognizer.reset()
-						speechRecognizer.transcribe()
+						viewStore.send(.reset)
+						viewStore.send(.transcribe)
 					}
 				})
 			}

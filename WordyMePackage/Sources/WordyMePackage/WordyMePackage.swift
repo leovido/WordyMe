@@ -10,7 +10,13 @@ public struct WordReducer: ReducerProtocol {
 		var isRecording: Bool = false
 		var isPressing: Bool = false
 		
-		public init(word: Definition = .init(word: nil, phonetic: nil, phonetics: [], origin: nil, meanings: []),
+		public init(word: Definition = .init(
+			word: nil,
+			phonetic: nil,
+			phonetics: [],
+			origin: nil,
+			meanings: []
+		),
 								showingAlert: Bool = false,
 								newWord: String = "",
 								isRecording: Bool = false,
@@ -31,8 +37,13 @@ public struct WordReducer: ReducerProtocol {
 		case recordingUpdate(Bool)
 		case recordingButtonPressed(Bool)
 		case updateNewWord(String)
+		case stopTranscribing
+		case reset
+		case transcribe
 	}
 	
+	@Dependency(\.speechClient) var speechClient
+
 	public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
 		switch action {
 			case let .wordResponse(.success(word)):
@@ -57,6 +68,16 @@ public struct WordReducer: ReducerProtocol {
 				return .none
 			case let .updateNewWord(newWord):
 				state.newWord = newWord
+				return .none
+		case .stopTranscribing:
+			speechClient.stopTranscribing()
+//			.send(.recordingUpdate(false))
+			
+			return .none
+//			self.addNewWord(newWord: speechRecognizer.transcript)
+		case .reset:
+			return .none
+		case .transcribe:
 				return .none
 		}
 	}

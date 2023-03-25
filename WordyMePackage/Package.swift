@@ -21,17 +21,22 @@ let package = Package(
 		.library(
 			name: "StatsFeature",
 			targets: ["StatsFeature"]),
+		.library(
+			name: "SpeechFeature",
+			targets: ["SpeechFeature"])
 	],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.52.0"),
 		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
 						 from: "1.11.0"),
+		.package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "0.2.0"),
 	],
 	targets: [
 		.target(
 			name: "WordyMePackage",
 			dependencies: [
 				.product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+				"SpeechFeature"
 			],
 			resources: [.process("Word.xcdatamodeld")]),
 		.target(
@@ -46,9 +51,17 @@ let package = Package(
 		.target(
 			name: "BrainLibraryFeature",
 			dependencies: [ ]),
+		.target(
+			name: "SpeechFeature",
+			dependencies: [
+				.product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
+//				.product(name: "Dependencies", package: "swift-composable-architecture"),
+			]),
 		.testTarget(
 			name: "WordyMePackageTests",
-			dependencies: ["WordyMePackage"])
+			dependencies: [
+				"WordyMePackage",
+			])
 	]
 )
 
