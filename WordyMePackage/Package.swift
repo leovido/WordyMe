@@ -47,15 +47,19 @@ let package = Package(
 			]),
 		.target(
 			name: "StatsFeature",
-			dependencies: [ ]),
+			dependencies: [
+				.product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+			]),
 		.target(
 			name: "BrainLibraryFeature",
-			dependencies: [ ]),
+			dependencies: [
+				.product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+			]),
 		.target(
 			name: "SpeechFeature",
 			dependencies: [
+				.product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
 				.product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
-//				.product(name: "Dependencies", package: "swift-composable-architecture"),
 			]),
 		.testTarget(
 			name: "WordyMePackageTests",

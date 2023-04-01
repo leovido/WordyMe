@@ -11,7 +11,7 @@ public struct Stats: Identifiable, Codable, Hashable {
 public struct StatsReducer: ReducerProtocol {
 	public init() {}
 	
-	public struct State {
+	public struct State: Equatable {
 		var stats: [Stats]
 		
 		public init(stats: [Stats] = []) {

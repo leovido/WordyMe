@@ -51,13 +51,16 @@ struct WordyMeApp: App {
 //	@UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 	let persistenceController = PersistenceController.shared
 	
-	
-	
 	var body: some Scene {
 		WindowGroup {
 			TabView {
 				WithViewStore(store) { viewStore in
-					MainWordView(store: store.scope(state: { $0.wordState }, action: AppReducer.Action.wordFeature))
+					MainWordView(
+						store: store.scope(
+							state: \.wordState,
+							action: AppReducer.Action.wordFeature
+						)
+					)
 						.environment(\.managedObjectContext, persistenceController.container.viewContext)
 						.tabItem {
 							Label("Words", systemImage: "text.bubble")

@@ -5,15 +5,18 @@ import StatsFeature
 
 public struct AppReducer: ReducerProtocol {
 	public init() {}
-
-	public struct State: Hashable {
+	
+	public struct State: Equatable {
 		var string: String
 		public var wordState: WordReducer.State
-		
+		public var statsState: StatsReducer.State
+
 		public init(string: String = "",
-								wordState: WordReducer.State = .init()) {
+								wordState: WordReducer.State = .init(),
+								statsState: StatsReducer.State = .init()) {
 			self.string = string
 			self.wordState = wordState
+			self.statsState = statsState
 		}
 	}
 	
@@ -24,20 +27,28 @@ public struct AppReducer: ReducerProtocol {
 		case statsFeature(StatsReducer.Action)
 	}
 	
-	public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-		switch action {
+	public var body: some ReducerProtocol<State, Action> {
+		Reduce { state, action in
+			switch action {
 			case .appDelegate(.didFinishLaunching):
 				return .none
 			case .appDelegate:
 				return .none
 			case .something:
 				return .none
-			case .wordFeature(let action):
+			case .wordFeature:
 				return .none
-			case .statsFeature(let action):
+			case .statsFeature:
 				return .none
-			case .wordFeature(_):
-				return .none
+			}
+		}
+		
+		Scope(state: \.wordState, action: /Action.wordFeature) {
+			WordReducer()
+		}
+		
+		Scope(state: \.statsState, action: /Action.statsFeature) {
+			StatsReducer()
 		}
 	}
 }

@@ -15,7 +15,12 @@ public struct MainWordView: View {
 
 	public init(store: StoreOf<WordReducer>) {
 		self.store = store
-		self.viewStore = ViewStore.init(.init(initialState: WordReducer.State(), reducer: WordReducer()))
+		self.viewStore = ViewStore(
+			.init(
+				initialState: WordReducer.State(),
+				reducer: WordReducer()._printChanges()
+			)
+		)
 	}
 	
 	public var body: some View {
@@ -60,24 +65,25 @@ public struct MainWordView: View {
 					Image(systemName: "mic.circle")
 						.resizable()
 						.frame(width: 100, height: 100)
-						.accessibilityLabel(viewStore.isRecording ? "with transcription" : "without transcription")
+						.accessibilityLabel(viewStore.state.speechState.isRecording ? "with transcription" : "without transcription")
 				})
 				
 				.background(.clear)
 				.onLongPressGesture(minimumDuration: 0.2, perform: {}, onPressingChanged: { isPressing in
-					self.viewStore.send(.recordingButtonPressed(isPressing))
-					
-					if !isPressing {
-						viewStore.send(.stopTranscribing)
+					if isPressing {
+						viewStore.send(.speechFeature(.recordButtonTapped))
+
+					} else {
+						viewStore.send(.speechFeature(.stopTranscribing))
 					}
 					
-					if self.viewStore.isPressing {
-						viewStore.send(.recordingUpdate(true))
-						
-						viewStore.send(.reset)
-						viewStore.send(.transcribe)
+					if self.viewStore.state.speechState.isRecording {
+						viewStore.send(.speechFeature(.recordButtonTapped))
 					}
 				})
+				.onChange(of: viewStore.state.newWord) { newValue in
+					addNewWord(newWord: newValue)
+				}
 			}
 		}
 	}
@@ -134,7 +140,7 @@ private let itemFormatter: DateFormatter = {
 }()
 
 struct ContentView_Previews: PreviewProvider {
-	static let store: StoreOf<WordReducer> = .init(initialState: WordReducer.State(word: .init(word: "Word", phonetic: "phonetic", phonetics: [], origin: nil, meanings: [.init(partOfSpeech: "Part of speech", definitions: [])]), showingAlert: false, newWord: "", isRecording: false, isPressing: false), reducer: WordReducer())
+//	static let store: StoreOf<WordReducer> = .init(initialState: WordReducer.State(word: .init(word: "Word", phonetic: "phonetic", phonetics: [], origin: nil, meanings: [.init(partOfSpeech: "Part of speech", definitions: [])]), showingAlert: false, newWord: "", isRecording: false, isPressing: false), reducer: WordReducer())
 	
 	static var previews: some View {
 		fatalError()

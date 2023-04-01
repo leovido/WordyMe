@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct WordView: View {
-	let item: Item
+public struct WordView: View {
+	public let item: Item
 	
 	@State private var definition: [Definition] = []
 	@State private var isLoading: Bool = false
 	
-	init(item: Item, definition: [Definition] = []) {
+	public init(item: Item, definition: [Definition] = []) {
 		self.item = item
 		self.definition = definition
 	}
@@ -22,7 +22,7 @@ struct WordView: View {
 			.flatMap({ $0.definitions })
 	}
 	
-	var body: some View {
+	public var body: some View {
 		ScrollView {
 			LazyVStack(alignment: .leading) {
 				HStack {
@@ -64,24 +64,8 @@ struct WordView: View {
 			}
 		}
 		.padding()
-		.task {
-			guard item.word != nil else {
-				return
-			}
-			isLoading = true
-			
-			defer {
-				isLoading = false
-			}
-			do {
-				let url = Constants.BASE_URL!.appending(path: item.word!)
-				let request = URLRequest(url: url)
-				let (data, _) = try await URLSession.shared.data(for: request)
-				definition = try JSONDecoder().decode([Definition].self, from: data)
-				
-			} catch {
-				print(error)
-			}
+		.onAppear {
+			viewStore.send(.fetchWord)
 		}
 	}
 }
