@@ -1,7 +1,6 @@
 import XCTest
 
 final class WordyMeUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
