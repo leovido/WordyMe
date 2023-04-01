@@ -1,0 +1,17 @@
+name: Unit tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Test WordFeature
+      run: xcodebuild build-for-testing test-without-building -scheme WordFeatureTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
