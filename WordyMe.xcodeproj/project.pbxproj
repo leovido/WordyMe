@@ -149,6 +149,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B93DC42D29BAEBB600D08CAF /* Build configuration list for PBXNativeTarget "WordyMe" */;
 			buildPhases = (
+				B9B8A20129D886DF00BDFFF5 /* ShellScript */,
 				B93DC3FF29BAEBB500D08CAF /* Sources */,
 				B93DC40029BAEBB500D08CAF /* Frameworks */,
 				B93DC40129BAEBB500D08CAF /* Resources */,
@@ -273,6 +274,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B9B8A20129D886DF00BDFFF5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n#swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\nswift run -c release swiftformat \"$SRCROOT\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B93DC3FF29BAEBB500D08CAF /* Sources */ = {
