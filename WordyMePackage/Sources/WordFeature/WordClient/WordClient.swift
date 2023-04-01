@@ -31,7 +31,7 @@ extension WordClient: DependencyKey {
 extension WordClient: TestDependencyKey {
 	public static var testValue: WordClient {
 		WordClient { _ in
-			return [Definition.init(word: nil, phonetic: nil, phonetics: [], origin: nil, meanings: [])]
+			return [Definition.init(word: "String", phonetic: nil, phonetics: [], origin: nil, meanings: [])]
 		}
 	}
 }

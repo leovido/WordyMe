@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "WordyMePackage"
-               BuildableName = "WordyMePackage"
-               BlueprintName = "WordyMePackage"
+               BlueprintIdentifier = "WordFeature"
+               BuildableName = "WordFeature"
+               BlueprintName = "WordFeature"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "WordyMePackageTests"
-               BuildableName = "WordyMePackageTests"
-               BlueprintName = "WordyMePackageTests"
+               BlueprintIdentifier = "WordFeatureTests"
+               BuildableName = "WordFeatureTests"
+               BlueprintName = "WordFeatureTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
@@ -60,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "WordyMePackage"
-            BuildableName = "WordyMePackage"
-            BlueprintName = "WordyMePackage"
+            BlueprintIdentifier = "WordFeature"
+            BuildableName = "WordFeature"
+            BlueprintName = "WordFeature"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

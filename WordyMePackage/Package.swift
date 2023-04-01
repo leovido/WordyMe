@@ -10,8 +10,8 @@ let package = Package(
 	],
 	products: [
 		.library(
-			name: "WordyMePackage",
-			targets: ["WordyMePackage"]),
+			name: "WordFeature",
+			targets: ["WordFeature"]),
 		.library(
 			name: "AppFeature",
 			targets: ["AppFeature"]),
@@ -30,10 +30,12 @@ let package = Package(
 		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
 						 from: "1.11.0"),
 		.package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "0.2.0"),
+		.package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.49.0"),
 	],
 	targets: [
+		.target(name: "BuildTools"),
 		.target(
-			name: "WordyMePackage",
+			name: "WordFeature",
 			dependencies: [
 				.product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
 				"SpeechFeature"
@@ -43,7 +45,7 @@ let package = Package(
 			name: "AppFeature",
 			dependencies: [
 				"StatsFeature",
-				"WordyMePackage"
+				"WordFeature"
 			]),
 		.target(
 			name: "StatsFeature",
@@ -62,9 +64,9 @@ let package = Package(
 				.product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
 			]),
 		.testTarget(
-			name: "WordyMePackageTests",
+			name: "WordFeatureTests",
 			dependencies: [
-				"WordyMePackage",
+				"WordFeature",
 			])
 	]
 		.map { (target: Target) in
