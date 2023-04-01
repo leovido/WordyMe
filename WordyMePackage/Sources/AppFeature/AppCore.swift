@@ -21,7 +21,6 @@ public struct AppReducer: ReducerProtocol {
 	}
 	
 	public enum Action: Equatable {
-		case something
 		case appDelegate(AppDelegateReducer.Action)
 		case wordFeature(WordReducer.Action)
 		case statsFeature(StatsReducer.Action)
@@ -33,8 +32,6 @@ public struct AppReducer: ReducerProtocol {
 			case .appDelegate(.didFinishLaunching):
 				return .none
 			case .appDelegate:
-				return .none
-			case .something:
 				return .none
 			case .wordFeature:
 				return .none
@@ -61,23 +58,24 @@ public struct AppDelegateReducer: ReducerProtocol {
 		case didRegisterForRemoteNotifications(TaskResult<Data>)
 	}
 	
-	
 	public init() {}
 	
-	public func reduce(into state: inout State, action: Action) -> Effect<Action, Never> {
-		switch action {
-			case .didFinishLaunching:
-				return .run { send in
-				}
-				
-			case .didRegisterForRemoteNotifications(.failure):
-				return .none
-				
-			case let .didRegisterForRemoteNotifications(.success(tokenData)):
-				let token = tokenData.map { String(format: "%02.2hhx", $0) }.joined()
-				return .fireAndForget {
+	public var body: some ReducerProtocol<State, Action> {
+		Reduce { state, action in
+			switch action {
+				case .didFinishLaunching:
+					return .run { send in
+					}
 					
-				}
+				case .didRegisterForRemoteNotifications(.failure):
+					return .none
+					
+				case let .didRegisterForRemoteNotifications(.success(tokenData)):
+					let token = tokenData.map { String(format: "%02.2hhx", $0) }.joined()
+					return .fireAndForget {
+						
+					}
+			}
 		}
 	}
 }

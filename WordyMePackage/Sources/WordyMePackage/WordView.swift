@@ -51,8 +51,10 @@ public struct WordView: View {
 				
 				Spacer()
 			}
+			.padding(.horizontal)
 		}
-		.padding()
+		.navigationTitle(Text(item.word!))
+		.navigationBarTitleDisplayMode(.inline)
 		.onAppear {
 			viewStore.send(.fetchWord(item.word!))
 		}
