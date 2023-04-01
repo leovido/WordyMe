@@ -29,7 +29,7 @@ public struct MainWordView: View {
 				List {
 					ForEach(items.sorted(by: { $0.timestamp! > $1.timestamp! })) { item in
 						NavigationLink {
-							WordView(item: item)
+							WordView(item: item, viewStore: viewStore)
 						} label: {
 							Text(item.word ?? "")
 						}

@@ -1,25 +1,14 @@
 import SwiftUI
+import ComposableArchitecture
 
 public struct WordView: View {
 	public let item: Item
+		
+	@ObservedObject var viewStore: ViewStore<WordReducer.State, WordReducer.Action>
 	
-	@State private var definition: [Definition] = []
-	@State private var isLoading: Bool = false
-	
-	public init(item: Item, definition: [Definition] = []) {
+	public init(item: Item, viewStore: ViewStore<WordReducer.State, WordReducer.Action>) {
 		self.item = item
-		self.definition = definition
-	}
-	
-	var phonetic: String {
-		definition.compactMap({ $0.phonetic })
-		.description
-	}
-	
-	var definitionElements: [DefinitionElement] {
-		definition
-			.flatMap({ $0.meanings })
-			.flatMap({ $0.definitions })
+		self.viewStore = viewStore
 	}
 	
 	public var body: some View {
@@ -31,15 +20,15 @@ public struct WordView: View {
 						.fontDesign(.serif)
 						.bold()
 					
-					Text(phonetic)
+					Text(viewStore.state.phonetic)
 						.foregroundColor(.gray)
 				}
 				.padding(.bottom)
 				
-				if isLoading {
+				if viewStore.state.isLoading {
 					ProgressView()
 				} else {
-						ForEach(Array(definitionElements.enumerated()),  id: \.offset) { index, element in
+					ForEach(Array(viewStore.state.definitionElements.enumerated()),  id: \.offset) { index, element in
 							
 							HStack(alignment: .top) {
 								Text(index.description)
@@ -65,7 +54,7 @@ public struct WordView: View {
 		}
 		.padding()
 		.onAppear {
-			viewStore.send(.fetchWord)
+			viewStore.send(.fetchWord(item.word!))
 		}
 	}
 }

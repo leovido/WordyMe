@@ -6,19 +6,34 @@ public struct WordReducer: ReducerProtocol {
 	public init() {}
 	
 	public struct State: Equatable {
-		public var word: Definition
+		public var word: [Definition]
 		public var showingAlert: Bool = false
+		@BindingState public var isLoading: Bool = false
 		@BindingState public var newWord: String = ""
 		public var speechState: SpeechFeature.State
 		
+		var phonetic: String {
+			word.compactMap({ $0.phonetic })
+				.description
+		}
+		
+		var definitionElements: [DefinitionElement] {
+			word
+				.flatMap({ $0.meanings })
+				.flatMap({ $0.definitions })
+		}
+		
 		public init(
-			word: Definition = .init(
-			word: nil,
-			phonetic: nil,
-			phonetics: [],
-			origin: nil,
-			meanings: []
-		),
+			word: [
+				Definition] = [
+					.init(
+						word: nil,
+						phonetic: nil,
+						phonetics: [],
+						origin: nil,
+						meanings: []
+					)
+				],
 			showingAlert: Bool = false,
 			newWord: String = "",
 			speechState: SpeechFeature.State = .init()
@@ -31,7 +46,7 @@ public struct WordReducer: ReducerProtocol {
 	}
 	
 	public enum Action: Hashable {
-		case wordResponse(TaskResult<Definition>)
+		case wordResponse(Definition)
 		case fetchWord(String)
 		case addNewItem
 		case isAlertPresented(Bool)
@@ -49,15 +64,16 @@ public struct WordReducer: ReducerProtocol {
 		Reduce { state, action in
 			switch action {
 			case let .fetchWord(word):
-					.run {
-						await wordClient.fetchWord(word)
+					state.isLoading = true
+					return .run { send in
+						let response = await wordClient.fetchWord(word).first!
+						await send(.wordResponse(response))
 					}
 				
-				return .none
-				case let .wordResponse(.success(word)):
-					state.word = word
-					return .none
-				case .wordResponse(.failure(_)):
+				case let .wordResponse(word):
+					state.isLoading = false
+
+					state.word = [word]
 					return .none
 				case .addNewItem:
 					state.showingAlert = true
