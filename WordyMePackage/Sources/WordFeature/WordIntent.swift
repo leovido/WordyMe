@@ -21,7 +21,8 @@ public struct WordIntent: AppIntent {
   var word: String
 
   public func perform() async throws -> some ReturnsValue & ProvidesDialog {
-		return .result(dialog: "Okay, adding \(word). \(WordReducer.shared.managedContext)")
+    NotificationCenter.default.post(name: NSNotification.Name("AddNewWord"), object: word)
+    return .result(dialog: "Okay, adding \(word)")
   }
 }
 
@@ -30,7 +31,7 @@ struct AppShortcuts: AppShortcutsProvider {
   static var appShortcuts: [AppShortcut] {
     AppShortcut(
       intent: WordIntent(),
-      phrases: ["Add \(\.$word)"]
+      phrases: ["Add \(\.$word) to \(.applicationName) "]
     )
   }
 }
@@ -55,26 +56,26 @@ public extension DependencyValues {
 }
 
 public struct WordIntentClient {
-	public static let shared: WordIntentClient = .init(words: [])
-	
-	var words: [Definition]
+  public static let shared: WordIntentClient = .init(words: [])
+
+  var words: [Definition]
 }
 
 extension WordIntentClient: DependencyKey {
-	public static var liveValue: WordIntentClient {
-		WordIntentClient.shared
-	}
+  public static var liveValue: WordIntentClient {
+    WordIntentClient.shared
+  }
 }
 
 extension WordIntentClient: TestDependencyKey {
-	public static var testValue: WordIntentClient {
-		WordIntentClient.shared
-	}
+  public static var testValue: WordIntentClient {
+    WordIntentClient.shared
+  }
 }
 
 public extension DependencyValues {
-	var wordIntentClient: WordIntentClient {
-		get { self[WordIntentClient.self] }
-		set { self[WordIntentClient.self] = newValue }
-	}
+  var wordIntentClient: WordIntentClient {
+    get { self[WordIntentClient.self] }
+    set { self[WordIntentClient.self] = newValue }
+  }
 }

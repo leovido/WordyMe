@@ -435,7 +435,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n# swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\nswiftformat .\n";
+			shellScript = "# cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n# swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\n# swiftformat .\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -745,6 +745,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordyMe/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "My word";
 				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Capture your voice to add new words";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Requesting access to capture your voice and store a word";
@@ -779,6 +780,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordyMe/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "My word";
 				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Capture your voice to add new words";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Requesting access to capture your voice and store a word";

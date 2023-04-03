@@ -13,7 +13,7 @@ final class WordyMePackageTests: XCTestCase {
       initialState: WordReducer.State(
         word: [mock]
       ),
-			reducer: WordReducer.shared
+      reducer: WordReducer.shared
     ) {
       $0.wordClient.fetchWord = { word in
         [Definition(word: word, phonetic: nil, phonetics: [], origin: nil, meanings: [])]

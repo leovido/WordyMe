@@ -85,6 +85,9 @@ public struct MainWordView: View {
         .onChange(of: viewStore.state.newWord) { newValue in
           addNewWord(newWord: newValue)
         }
+        .onAppear {
+          viewStore.send(.onAppear)
+        }
       }
     }
   }

@@ -53,6 +53,7 @@ public struct WordReducer: ReducerProtocol {
     case setWord(String)
     case speechFeature(SpeechFeature.Action)
     case updateNewWord(String)
+    case onAppear
   }
 
   @Dependency(\.speechClient) var speechClient
@@ -62,7 +63,20 @@ public struct WordReducer: ReducerProtocol {
 
   public var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
+      struct WordId: Hashable {}
       switch action {
+      case .onAppear:
+        return .run { send in
+          let values = NotificationCenter.default.publisher(for: Notification.Name("AddNewWord"))
+            .compactMap { notification in
+              notification.object as? String
+            }
+            .values
+
+          for await word in values {
+            await send(.setWord(word))
+          }
+        }
       case let .fetchWord(word):
         state.isLoading = true
         return .run { send in
