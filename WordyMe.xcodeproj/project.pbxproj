@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		471EA41529BFE588009A6E4F /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 471EA41429BFE588009A6E4F /* AppFeature */; };
+		47A8BA1829D8E023004DD189 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A8BA1729D8E023004DD189 /* Intents.framework */; };
+		47A8BA1B29D8E023004DD189 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A8BA1A29D8E023004DD189 /* IntentHandler.swift */; };
+		47A8BA2329D8E024004DD189 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A8BA2229D8E024004DD189 /* IntentsUI.framework */; };
+		47A8BA2629D8E024004DD189 /* IntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A8BA2529D8E024004DD189 /* IntentViewController.swift */; };
+		47A8BA2929D8E024004DD189 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47A8BA2729D8E024004DD189 /* MainInterface.storyboard */; };
+		47A8BA2E29D8E024004DD189 /* WordIntentsUI.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 47A8BA2129D8E024004DD189 /* WordIntentsUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		47A8BA3129D8E025004DD189 /* WordIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 47A8BA1629D8E023004DD189 /* WordIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		47D3198429BE5E6700F75A20 /* BrainLibraryFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 47D3198329BE5E6700F75A20 /* BrainLibraryFeature */; };
 		B93DC40729BAEBB500D08CAF /* WordyMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93DC40629BAEBB500D08CAF /* WordyMeApp.swift */; };
 		B93DC40B29BAEBB600D08CAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B93DC40A29BAEBB600D08CAF /* Assets.xcassets */; };
@@ -18,6 +25,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		47A8BA2B29D8E024004DD189 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B93DC3FB29BAEBB500D08CAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 47A8BA2029D8E024004DD189;
+			remoteInfo = WordIntentsUI;
+		};
+		47A8BA2F29D8E025004DD189 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B93DC3FB29BAEBB500D08CAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 47A8BA1529D8E023004DD189;
+			remoteInfo = WordIntents;
+		};
 		B93DC41A29BAEBB600D08CAF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B93DC3FB29BAEBB500D08CAF /* Project object */;
@@ -34,7 +55,31 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		47A8BA2D29D8E024004DD189 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				47A8BA3129D8E025004DD189 /* WordIntents.appex in Embed Foundation Extensions */,
+				47A8BA2E29D8E024004DD189 /* WordIntentsUI.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		47A8BA1629D8E023004DD189 /* WordIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WordIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		47A8BA1729D8E023004DD189 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		47A8BA1A29D8E023004DD189 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		47A8BA1C29D8E023004DD189 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47A8BA2129D8E024004DD189 /* WordIntentsUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WordIntentsUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		47A8BA2229D8E024004DD189 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		47A8BA2529D8E024004DD189 /* IntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentViewController.swift; sourceTree = "<group>"; };
+		47A8BA2829D8E024004DD189 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		47A8BA2A29D8E024004DD189 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B93A268529BC82330046F648 /* WordyMePackage */ = {isa = PBXFileReference; lastKnownFileType = text; path = WordyMePackage; sourceTree = SOURCE_ROOT; };
 		B93DC40329BAEBB500D08CAF /* WordyMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordyMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B93DC40629BAEBB500D08CAF /* WordyMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordyMeApp.swift; sourceTree = "<group>"; };
@@ -49,6 +94,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		47A8BA1329D8E023004DD189 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47A8BA1829D8E023004DD189 /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47A8BA1E29D8E024004DD189 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47A8BA2329D8E024004DD189 /* IntentsUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B93DC40029BAEBB500D08CAF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,9 +136,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47A8BA1929D8E023004DD189 /* WordIntents */ = {
+			isa = PBXGroup;
+			children = (
+				47A8BA1A29D8E023004DD189 /* IntentHandler.swift */,
+				47A8BA1C29D8E023004DD189 /* Info.plist */,
+			);
+			path = WordIntents;
+			sourceTree = "<group>";
+		};
+		47A8BA2429D8E024004DD189 /* WordIntentsUI */ = {
+			isa = PBXGroup;
+			children = (
+				47A8BA2529D8E024004DD189 /* IntentViewController.swift */,
+				47A8BA2729D8E024004DD189 /* MainInterface.storyboard */,
+				47A8BA2A29D8E024004DD189 /* Info.plist */,
+			);
+			path = WordIntentsUI;
+			sourceTree = "<group>";
+		};
 		B93A268629BCC1280046F648 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47A8BA1729D8E023004DD189 /* Intents.framework */,
+				47A8BA2229D8E024004DD189 /* IntentsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -88,6 +170,8 @@
 				B93DC40529BAEBB500D08CAF /* WordyMe */,
 				B93DC41C29BAEBB600D08CAF /* WordyMeTests */,
 				B93DC42629BAEBB600D08CAF /* WordyMeUITests */,
+				47A8BA1929D8E023004DD189 /* WordIntents */,
+				47A8BA2429D8E024004DD189 /* WordIntentsUI */,
 				B93DC40429BAEBB500D08CAF /* Products */,
 				B93A268629BCC1280046F648 /* Frameworks */,
 			);
@@ -99,6 +183,8 @@
 				B93DC40329BAEBB500D08CAF /* WordyMe.app */,
 				B93DC41929BAEBB600D08CAF /* WordyMeTests.xctest */,
 				B93DC42329BAEBB600D08CAF /* WordyMeUITests.xctest */,
+				47A8BA1629D8E023004DD189 /* WordIntents.appex */,
+				47A8BA2129D8E024004DD189 /* WordIntentsUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,6 +229,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		47A8BA1529D8E023004DD189 /* WordIntents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47A8BA3529D8E025004DD189 /* Build configuration list for PBXNativeTarget "WordIntents" */;
+			buildPhases = (
+				47A8BA1229D8E023004DD189 /* Sources */,
+				47A8BA1329D8E023004DD189 /* Frameworks */,
+				47A8BA1429D8E023004DD189 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WordIntents;
+			productName = WordIntents;
+			productReference = 47A8BA1629D8E023004DD189 /* WordIntents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		47A8BA2029D8E024004DD189 /* WordIntentsUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47A8BA3229D8E025004DD189 /* Build configuration list for PBXNativeTarget "WordIntentsUI" */;
+			buildPhases = (
+				47A8BA1D29D8E024004DD189 /* Sources */,
+				47A8BA1E29D8E024004DD189 /* Frameworks */,
+				47A8BA1F29D8E024004DD189 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WordIntentsUI;
+			productName = WordIntentsUI;
+			productReference = 47A8BA2129D8E024004DD189 /* WordIntentsUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		B93DC40229BAEBB500D08CAF /* WordyMe */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B93DC42D29BAEBB600D08CAF /* Build configuration list for PBXNativeTarget "WordyMe" */;
@@ -151,10 +271,13 @@
 				B93DC3FF29BAEBB500D08CAF /* Sources */,
 				B93DC40029BAEBB500D08CAF /* Frameworks */,
 				B93DC40129BAEBB500D08CAF /* Resources */,
+				47A8BA2D29D8E024004DD189 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				47A8BA2C29D8E024004DD189 /* PBXTargetDependency */,
+				47A8BA3029D8E025004DD189 /* PBXTargetDependency */,
 			);
 			name = WordyMe;
 			packageProductDependencies = (
@@ -211,6 +334,12 @@
 				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
+					47A8BA1529D8E023004DD189 = {
+						CreatedOnToolsVersion = 14.1;
+					};
+					47A8BA2029D8E024004DD189 = {
+						CreatedOnToolsVersion = 14.1;
+					};
 					B93DC40229BAEBB500D08CAF = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -242,11 +371,28 @@
 				B93DC40229BAEBB500D08CAF /* WordyMe */,
 				B93DC41829BAEBB600D08CAF /* WordyMeTests */,
 				B93DC42229BAEBB600D08CAF /* WordyMeUITests */,
+				47A8BA1529D8E023004DD189 /* WordIntents */,
+				47A8BA2029D8E024004DD189 /* WordIntentsUI */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		47A8BA1429D8E023004DD189 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47A8BA1F29D8E024004DD189 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47A8BA2929D8E024004DD189 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B93DC40129BAEBB500D08CAF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -294,6 +440,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		47A8BA1229D8E023004DD189 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47A8BA1B29D8E023004DD189 /* IntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47A8BA1D29D8E024004DD189 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47A8BA2629D8E024004DD189 /* IntentViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B93DC3FF29BAEBB500D08CAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -322,6 +484,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		47A8BA2C29D8E024004DD189 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 47A8BA2029D8E024004DD189 /* WordIntentsUI */;
+			targetProxy = 47A8BA2B29D8E024004DD189 /* PBXContainerItemProxy */;
+		};
+		47A8BA3029D8E025004DD189 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 47A8BA1529D8E023004DD189 /* WordIntents */;
+			targetProxy = 47A8BA2F29D8E025004DD189 /* PBXContainerItemProxy */;
+		};
 		B93DC41B29BAEBB600D08CAF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B93DC40229BAEBB500D08CAF /* WordyMe */;
@@ -334,7 +506,118 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		47A8BA2729D8E024004DD189 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47A8BA2829D8E024004DD189 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		47A8BA3329D8E025004DD189 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HL92L2PJSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordIntentsUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WordIntentsUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.WordyMeApp.WordIntentsUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		47A8BA3429D8E025004DD189 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HL92L2PJSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordIntentsUI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WordIntentsUI;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.WordyMeApp.WordIntentsUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		47A8BA3629D8E025004DD189 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HL92L2PJSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WordIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.WordyMeApp.WordIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		47A8BA3729D8E025004DD189 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HL92L2PJSU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WordIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.WordyMeApp.WordIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		B93DC42B29BAEBB600D08CAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -452,6 +735,7 @@
 		B93DC42E29BAEBB600D08CAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -485,6 +769,7 @@
 		B93DC42F29BAEBB600D08CAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -594,6 +879,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		47A8BA3229D8E025004DD189 /* Build configuration list for PBXNativeTarget "WordIntentsUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47A8BA3329D8E025004DD189 /* Debug */,
+				47A8BA3429D8E025004DD189 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		47A8BA3529D8E025004DD189 /* Build configuration list for PBXNativeTarget "WordIntents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47A8BA3629D8E025004DD189 /* Debug */,
+				47A8BA3729D8E025004DD189 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B93DC3FE29BAEBB500D08CAF /* Build configuration list for PBXProject "WordyMe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

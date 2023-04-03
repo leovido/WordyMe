@@ -3,7 +3,8 @@ import Foundation
 import SpeechFeature
 
 public struct WordReducer: ReducerProtocol {
-  public init() {}
+  public static let shared: WordReducer = .init()
+  private init() {}
 
   public struct State: Equatable {
     public var word: [Definition]

@@ -19,7 +19,7 @@ public struct MainWordView: View {
     viewStore = ViewStore(
       .init(
         initialState: WordReducer.State(),
-        reducer: WordReducer()._printChanges()
+        reducer: WordReducer.shared._printChanges()
       )
     )
   }
