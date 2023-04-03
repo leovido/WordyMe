@@ -21,7 +21,6 @@ public struct WordIntent: AppIntent {
   var word: String
 
   public func perform() async throws -> some ReturnsValue & ProvidesDialog {
-		await WordClient.shared.
 		return .result(dialog: "Okay, adding \(word). \(WordReducer.shared.managedContext)")
   }
 }
