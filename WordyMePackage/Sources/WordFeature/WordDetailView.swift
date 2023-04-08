@@ -1,7 +1,8 @@
 import ComposableArchitecture
+import StyleGuide
 import SwiftUI
 
-public struct WordView: View {
+public struct WordDetailView: View {
   public let item: Item
 
   @ObservedObject var viewStore: ViewStore<WordReducer.State, WordReducer.Action>
@@ -19,6 +20,7 @@ public struct WordView: View {
             .font(.largeTitle)
             .fontDesign(.serif)
             .bold()
+            .foregroundColor(Color(uiColor: ColorGuide.secondary))
 
           Text(viewStore.state.phonetic)
             .foregroundColor(.gray)
@@ -33,11 +35,12 @@ public struct WordView: View {
             HStack(alignment: .top) {
               Text(index.description)
                 .bold()
-                .foregroundColor(.gray)
+                .foregroundColor(Color(uiColor: ColorGuide.secondary))
                 .padding(.trailing)
                 .fontDesign(.rounded)
                 .accessibilityLabel(Text(index.description))
               Text(element.definition ?? "")
+                .foregroundColor(Color(uiColor: ColorGuide.secondary))
                 .font(.body)
                 .fontDesign(.serif)
                 .padding(.bottom)
@@ -58,6 +61,7 @@ public struct WordView: View {
     .onAppear {
       viewStore.send(.fetchWord(item.word!))
     }
+    .background(Color(uiColor: ColorGuide.primaryAlt))
   }
 }
 

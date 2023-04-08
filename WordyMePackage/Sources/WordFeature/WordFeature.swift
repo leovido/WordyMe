@@ -86,7 +86,9 @@ public struct WordReducer: ReducerProtocol {
       case let .fetchWord(word):
         state.isLoading = true
         return .run { send in
-          let response = await wordClient.fetchWord(word).first!
+          guard let response = await wordClient.fetchWord(word).first else {
+            return
+          }
           await send(.wordResponse(response))
         }
 
