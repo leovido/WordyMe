@@ -48,8 +48,14 @@ public struct MainWordView: View {
             }) {
               Label("Add Item", systemImage: "plus")
             }
-            .alert("Enter your word", isPresented: viewStore.binding(get: \.showingAlert, send: WordReducer.Action.isAlertPresented)) {
-              TextField("Enter your word", text: viewStore.binding(get: \.newWord, send: WordReducer.Action.setWord))
+            .alert(
+              "Enter your word",
+              isPresented: viewStore.binding(get: \.showingAlert, send: WordReducer.Action.isAlertPresented)
+            ) {
+              TextField(
+                "Enter your word",
+                text: viewStore.binding(get: \.newWord, send: WordReducer.Action.setWord)
+              )
               Button("OK", action: {
                 addNewWord(newWord: viewStore.newWord)
               })
@@ -73,7 +79,6 @@ public struct MainWordView: View {
         .onLongPressGesture(minimumDuration: 0.2, perform: {}, onPressingChanged: { isPressing in
           if isPressing {
             viewStore.send(.speechFeature(.recordButtonTapped))
-
           } else {
             viewStore.send(.speechFeature(.stopTranscribing))
           }
@@ -84,6 +89,33 @@ public struct MainWordView: View {
         })
         .onChange(of: viewStore.state.newWord) { newValue in
           addNewWord(newWord: newValue)
+        }
+        .onAppear {
+          viewStore.send(.onAppear)
+        }
+        .sheet(isPresented: viewStore.binding(\.$hasPossibleWords)) {
+          VStack(alignment: .leading) {
+            ScrollView {
+              Text("Possibilities")
+                .font(.largeTitle)
+              ForEach(viewStore.state.possibleWords) { possibility in
+                HStack {
+                  Text(possibility.formattedString)
+                    .font(.title)
+
+                  let confidence = possibility.segments.filter {
+                    $0.substring == possibility.formattedString
+                  }
+                  .map(\.confidence)
+                  .first!
+
+                  let formattedConfidence = String(format: "%0.2f%%", confidence * 100)
+                  Text(formattedConfidence)
+                }
+                .padding()
+              }
+            }
+          }
         }
       }
     }

@@ -7,6 +7,7 @@ let package = Package(
   name: "WordyMePackage",
   platforms: [
     .iOS("16.1"),
+    .macOS("13"),
   ],
   products: [
     .library(
