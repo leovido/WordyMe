@@ -6,7 +6,8 @@ public struct WordReducer: ReducerProtocol {
   public init() {}
 
   public struct State: Equatable {
-    public var word: [Definition]
+    public var wordDefinitions: [Definition]
+    public var words: [String]
     public var showingAlert: Bool = false
     @BindingState public var isLoading: Bool = false
     @BindingState public var newWord: String = ""
@@ -15,18 +16,18 @@ public struct WordReducer: ReducerProtocol {
     public var speechState: SpeechFeature.State
 
     var phonetic: String {
-      word.compactMap { $0.phonetic }
+      wordDefinitions.compactMap { $0.phonetic }
         .description
     }
 
     var definitionElements: [DefinitionElement] {
-      word
+      wordDefinitions
         .flatMap { $0.meanings }
         .flatMap { $0.definitions }
     }
 
     public init(
-      word: [Definition] = [
+      wordDefinitions: [Definition] = [
         .init(
           word: nil,
           phonetic: nil,
@@ -35,14 +36,16 @@ public struct WordReducer: ReducerProtocol {
           meanings: []
         ),
       ],
+			words: [String] = [],
       showingAlert: Bool = false,
       newWord: String = "",
       speechState: SpeechFeature.State = .init()
     ) {
-      self.word = word
+      self.wordDefinitions = wordDefinitions
       self.showingAlert = showingAlert
       self.newWord = newWord
       self.speechState = speechState
+			self.words = words
     }
   }
 
@@ -56,6 +59,7 @@ public struct WordReducer: ReducerProtocol {
     case updateNewWord(String)
     case onAppear
     case binding(BindingAction<State>)
+		case updateCurrentWords([String])
   }
 
   @Dependency(\.speechClient) var speechClient
@@ -65,7 +69,12 @@ public struct WordReducer: ReducerProtocol {
 
   public var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
+      struct WordId: Hashable {}
       switch action {
+			case let .updateCurrentWords(newWords):
+				state.words = newWords
+				
+				return .none
       case .binding:
         if !state.hasPossibleWords {
           state.possibleWords.removeAll()
@@ -95,7 +104,7 @@ public struct WordReducer: ReducerProtocol {
       case let .wordResponse(word):
         state.isLoading = false
 
-        state.word = [word]
+        state.wordDefinitions = [word]
         return .none
       case .addNewItem:
         state.showingAlert = true

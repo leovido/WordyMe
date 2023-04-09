@@ -11,7 +11,7 @@ final class WordyMePackageTests: XCTestCase {
     // Create a test store with the initial state
     let store = TestStore(
       initialState: WordReducer.State(
-        word: [mock]
+				wordDefinitions: [mock]
       ),
       reducer: WordReducer()
     ) {
@@ -27,7 +27,7 @@ final class WordyMePackageTests: XCTestCase {
 
     await store.receive(.wordResponse(mock)) {
       $0.isLoading = false
-      $0.word = [mock]
+      $0.wordDefinitions = [mock]
     }
   }
 }

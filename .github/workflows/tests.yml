@@ -2,16 +2,40 @@ name: Unit tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   build:
-  
     runs-on: self-hosted
     
+    concurrency:
+      group: ${{ github.head_ref }}
+      cancel-in-progress: false
+      
+    strategy:
+      matrix:
+        destination:
+          - platform=iOS Simulator,OS=15.0,name=iPhone 12 Pro Max
+          - platform=iOS Simulator,OS=14.0,name=iPhone 11
+          # Add more destination configurations as needed
     steps:
-    - uses: actions/checkout@v3
-    - name: Test WordFeature
-      run: xcodebuild build-for-testing test-without-building -scheme WordFeatureTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
+      - uses: actions/checkout@v3
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Test WordFeature
+        run: xcodebuild build-for-testing test-without-building -scheme WordFeatureTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
+
+      - name: Save cache
+        uses: actions/cache@v2
+        with:
+          path: ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
