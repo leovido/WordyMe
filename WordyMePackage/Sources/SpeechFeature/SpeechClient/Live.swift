@@ -75,8 +75,8 @@ private actor Speech {
         _ in
 
         _ = speechRecognizer
-        audioEngine.wrappedValue?.stop()
-        audioEngine.wrappedValue?.inputNode.removeTap(onBus: 0)
+        audioEngine.wrappedValue.stop()
+        audioEngine.wrappedValue.inputNode.removeTap(onBus: 0)
         recognitionTask.wrappedValue?.finish()
       }
 
