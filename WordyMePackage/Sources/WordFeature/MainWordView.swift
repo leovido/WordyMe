@@ -20,10 +20,57 @@ public struct MainWordView: View {
     viewStore = ViewStore(
       .init(
         initialState: WordReducer.State(),
-        reducer: WordReducer.shared._printChanges()
+        reducer: WordReducer()._printChanges()
       )
     )
   }
+	
+	private var WordSectionsView: some View {
+		Group {
+			if items.isEmpty {
+				Spacer()
+				VStack {
+					Image(systemName: "text.bubble")
+						.resizable()
+						.aspectRatio(contentMode: .fit)
+						.foregroundColor(Color(uiColor: ColorGuide.secondary))
+						.frame(width: 70, height: 70)
+
+					Text("New words")
+						.font(.title)
+						.foregroundColor(Color(uiColor: ColorGuide.secondary))
+						.bold()
+						.multilineTextAlignment(.center)
+						.padding(.top)
+
+					Text("Start adding new words to improve your vocabulary")
+						.font(.body)
+						.foregroundColor(Color(uiColor: ColorGuide.secondary))
+						.multilineTextAlignment(.center)
+						.padding(.top, 4)
+				}
+				Spacer()
+
+			} else {
+				List {
+					ForEach(items.sorted(by: { $0.timestamp! > $1.timestamp! })) { item in
+						NavigationLink {
+							WordDetailView(item: item, viewStore: viewStore)
+								.listRowBackground(Color.red)
+						} label: {
+							Text(item.word ?? "")
+								.fontDesign(.rounded)
+								.foregroundColor(Color(uiColor: ColorGuide.secondary))
+						}
+					}
+					.onDelete(perform: deleteItems)
+					.transition(AnyTransition.asymmetric(insertion: .opacity, removal: .slide))
+				}
+				.scrollContentBackground(.hidden)
+				.listStyle(InsetGroupedListStyle())
+			}
+		}
+	}
 
   public var body: some View {
     NavigationView {
@@ -31,50 +78,7 @@ public struct MainWordView: View {
         Color(uiColor: ColorGuide.primaryAlt)
           .edgesIgnoringSafeArea(.all)
         VStack {
-          Group {
-            if items.isEmpty {
-              Spacer()
-              VStack {
-                Image(systemName: "text.bubble")
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .foregroundColor(Color(uiColor: ColorGuide.secondary))
-                  .frame(width: 70, height: 70)
-
-                Text("New words")
-                  .font(.title)
-                  .foregroundColor(Color(uiColor: ColorGuide.secondary))
-                  .bold()
-                  .multilineTextAlignment(.center)
-                  .padding(.top)
-
-                Text("Start adding new words to improve your vocabulary")
-                  .font(.body)
-                  .foregroundColor(Color(uiColor: ColorGuide.ternary))
-                  .multilineTextAlignment(.center)
-                  .padding(.top, 4)
-              }
-              Spacer()
-
-            } else {
-              List {
-                ForEach(items.sorted(by: { $0.timestamp! > $1.timestamp! })) { item in
-                  NavigationLink {
-                    WordDetailView(item: item, viewStore: viewStore)
-                      .listRowBackground(Color.red)
-                  } label: {
-                    Text(item.word ?? "")
-                      .fontDesign(.rounded)
-                      .foregroundColor(Color(uiColor: ColorGuide.secondary))
-                  }
-                }
-                .onDelete(perform: deleteItems)
-                .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .slide))
-              }
-              .scrollContentBackground(.hidden)
-              .listStyle(InsetGroupedListStyle())
-            }
-          }
+					WordSectionsView
           Spacer()
 
           Button(action: {
@@ -101,6 +105,9 @@ public struct MainWordView: View {
           .onChange(of: viewStore.state.newWord) { newValue in
             addNewWord(newWord: newValue)
           }
+					.onChange(of: items.compactMap(\.word)) { newItems in
+						viewStore.send(.updateCurrentWords(newItems))
+					}
           .onAppear {
             viewStore.send(.onAppear)
           }
@@ -131,34 +138,37 @@ public struct MainWordView: View {
         }
       }
       .toolbar {
-        ToolbarItem(placement: .navigationBarTrailing) {
-          EditButton()
-        }
-        ToolbarItem {
-          Button(action: {
-            viewStore.send(.addNewItem)
-          }) {
-            Label("Add Item", systemImage: "plus")
-          }
-          .alert(
-            "Enter your word",
-            isPresented: viewStore.binding(get: \.showingAlert, send: WordReducer.Action.isAlertPresented)
-          ) {
-            TextField(
-              "Enter your word",
-              text: viewStore.binding(\.$newWord)
-            )
-            Button("OK", action: {
-              addNewWord(newWord: viewStore.newWord)
-            })
-          } message: {
-            Text("This word will be store in the app.")
-          }
-        }
-        .onAppear {
-          viewStore.send(.onAppear)
-        }
+				ToolbarItem(placement: .primaryAction) {
+					Menu {
+						Button(action: {
+							viewStore.send(.addNewItem)
+						}) {
+							Label("Add Item", systemImage: "plus")
+						}
+						viewStore.state.words.isEmpty ? EmptyView().asAnyView() : EditButton().asAnyView()
+					} label: {
+						Label("Menu", systemImage: "ellipsis")
+					}
+				}
       }
+			.alert(
+				"Enter your word",
+				isPresented: viewStore.binding(get: \.showingAlert, send: WordReducer.Action.isAlertPresented)
+			) {
+				TextField(
+					"Enter your word",
+					text: viewStore.binding(\.$newWord)
+				)
+				Button("Ok", action: {
+					addNewWord(newWord: viewStore.newWord)
+				})
+			} message: {
+				Text("This word will be stored in the app.")
+			}
+			.onAppear {
+				viewStore.send(.onAppear)
+				viewStore.send(.updateCurrentWords(items.compactMap(\.word)))
+			}
       .navigationTitle(Text("My words"))
     }
     .tint(Color(uiColor: ColorGuide.secondary))
@@ -224,4 +234,10 @@ struct ContentView_Previews: PreviewProvider {
     //			MainWordView(viewStore: viewStore)
     //				.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
   }
+}
+
+extension View {
+	func asAnyView() -> AnyView {
+		AnyView(self)
+	}
 }

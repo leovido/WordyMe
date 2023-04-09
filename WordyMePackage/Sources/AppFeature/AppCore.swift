@@ -43,7 +43,7 @@ public struct AppReducer: ReducerProtocol {
     }
 
     Scope(state: \.wordState, action: /Action.wordFeature) {
-      WordReducer.shared
+      WordReducer()
     }
 
     Scope(state: \.statsState, action: /Action.statsFeature) {

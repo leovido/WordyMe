@@ -27,7 +27,7 @@ final class WordyMePackageTests: XCTestCase {
 
     await store.receive(.wordResponse(mock)) {
       $0.isLoading = false
-      $0.word = [mock]
+      $0.wordDefinitions = [mock]
     }
   }
 }
