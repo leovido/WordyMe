@@ -20,7 +20,7 @@ public struct WordDetailView: View {
             .font(.largeTitle)
             .fontDesign(.serif)
             .bold()
-            .foregroundColor(Color(uiColor: ColorGuide.secondary))
+            .foregroundColor(ColorGuide.secondary)
 
           Text(viewStore.state.phonetic)
             .foregroundColor(.gray)
@@ -35,12 +35,12 @@ public struct WordDetailView: View {
             HStack(alignment: .top) {
               Text(index.description)
                 .bold()
-                .foregroundColor(Color(uiColor: ColorGuide.secondary))
+                .foregroundColor(ColorGuide.secondary)
                 .padding(.trailing)
                 .fontDesign(.rounded)
                 .accessibilityLabel(Text(index.description))
               Text(element.definition ?? "")
-                .foregroundColor(Color(uiColor: ColorGuide.secondary))
+                .foregroundColor(ColorGuide.secondary)
                 .font(.body)
                 .fontDesign(.serif)
                 .padding(.bottom)
@@ -61,7 +61,7 @@ public struct WordDetailView: View {
     .onAppear {
       viewStore.send(.fetchWord(item.word!))
     }
-    .background(Color(uiColor: ColorGuide.primaryAlt))
+    .background(ColorGuide.primaryAlt)
   }
 }
 

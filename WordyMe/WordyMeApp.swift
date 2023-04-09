@@ -86,7 +86,7 @@ struct WordyMeApp: App {
             }
         }
       }
-      .tint(Color(uiColor: ColorGuide.secondary))
+      .tint(ColorGuide.secondary)
     }
   }
 }
