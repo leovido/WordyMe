@@ -26,6 +26,8 @@ public struct SpeechFeature: ReducerProtocol {
     case recordButtonTapped
     case stopTranscribing
     case speech(TaskResult<String>)
+    case possibleWords([Transcription])
+    case didLiftFinger
     case speechRecognizerAuthorizationStatusResponse(SFSpeechRecognizerAuthorizationStatus)
   }
 
@@ -38,14 +40,17 @@ public struct SpeechFeature: ReducerProtocol {
         state.alert = nil
         return .none
 
+      case .didLiftFinger:
+        return .fireAndForget {
+          await self.speechClient.finishTask()
+        }
+
       case .recordButtonTapped:
         state.isRecording.toggle()
 
         guard state.isRecording
         else {
-          return .fireAndForget {
-            await self.speechClient.finishTask()
-          }
+          return .none
         }
 
         return .run { send in
@@ -55,16 +60,17 @@ public struct SpeechFeature: ReducerProtocol {
           guard status == .authorized
           else { return }
 
+          dump("how many times")
           let request = SFSpeechAudioBufferRecognitionRequest()
           for try await result in await self.speechClient.startTask(request) {
-            await send(
-              .speech(.success(result.bestTranscription.formattedString)), animation: .linear
-            )
+            dump(result)
+            let transcriptions = result.transcriptions
+
+            await send(.possibleWords(transcriptions))
           }
         } catch: { error, send in
           await send(.speech(.failure(error)))
         }
-
       case .speech(.failure(SpeechClient.Failure.couldntConfigureAudioSession)),
            .speech(.failure(SpeechClient.Failure.couldntStartAudioEngine)):
         state.alert = AlertState { TextState("Problem with audio device. Please try again.") }
@@ -80,6 +86,8 @@ public struct SpeechFeature: ReducerProtocol {
         state.transcribedText = transcribedText
         return .none
 
+      case .possibleWords:
+        return .none
       case let .speechRecognizerAuthorizationStatusResponse(status):
         state.isRecording = status == .authorized
 
@@ -109,7 +117,9 @@ public struct SpeechFeature: ReducerProtocol {
           return .none
         }
       case .stopTranscribing:
-        return .none
+        return .run { send in
+          await send(.didLiftFinger)
+        }
       }
     }
   }

@@ -11,6 +11,8 @@ public struct WordReducer: ReducerProtocol {
     public var showingAlert: Bool = false
     @BindingState public var isLoading: Bool = false
     @BindingState public var newWord: String = ""
+    @BindingState public var hasPossibleWords: Bool = false
+    public var possibleWords: [Transcription] = []
     public var speechState: SpeechFeature.State
 
     var phonetic: String {
@@ -45,7 +47,7 @@ public struct WordReducer: ReducerProtocol {
     }
   }
 
-  public enum Action: Hashable {
+  public enum Action: Equatable, BindableAction {
     case wordResponse(Definition)
     case fetchWord(String)
     case addNewItem
@@ -54,6 +56,7 @@ public struct WordReducer: ReducerProtocol {
     case speechFeature(SpeechFeature.Action)
     case updateNewWord(String)
     case onAppear
+    case binding(BindingAction<State>)
   }
 
   @Dependency(\.speechClient) var speechClient
@@ -65,6 +68,11 @@ public struct WordReducer: ReducerProtocol {
     Reduce { state, action in
       struct WordId: Hashable {}
       switch action {
+      case .binding:
+        if !state.hasPossibleWords {
+          state.possibleWords.removeAll()
+        }
+        return .none
       case .onAppear:
         return .run { send in
           let values = NotificationCenter.default.publisher(for: Notification.Name("AddNewWord"))
@@ -80,7 +88,9 @@ public struct WordReducer: ReducerProtocol {
       case let .fetchWord(word):
         state.isLoading = true
         return .run { send in
-          let response = await wordClient.fetchWord(word).first!
+          guard let response = await wordClient.fetchWord(word).first else {
+            return
+          }
           await send(.wordResponse(response))
         }
 
@@ -108,10 +118,16 @@ public struct WordReducer: ReducerProtocol {
 
           return .none
 
+        case let .possibleWords(transcriptions):
+          state.possibleWords = transcriptions
+          state.hasPossibleWords = !state.possibleWords.isEmpty
+
+          return .none
         default: return .none
         }
       }
     }
+    BindingReducer()
     Scope(state: \.speechState, action: /Action.speechFeature) {
       SpeechFeature()
     }

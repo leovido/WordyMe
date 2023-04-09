@@ -11,7 +11,8 @@ public struct WordIntent: AppIntent {
   static var description: IntentDescription = .init(
     """
     Add a new word to your collection.
-    """, categoryName: "Words"
+    """,
+    categoryName: "Words"
   )
 
   @Parameter(title: "Word",
@@ -31,7 +32,7 @@ struct AppShortcuts: AppShortcutsProvider {
   static var appShortcuts: [AppShortcut] {
     AppShortcut(
       intent: WordIntent(),
-      phrases: ["Add \(\.$word) to \(.applicationName) "]
+      phrases: ["Append \(\.$word) to \(.applicationName) "]
     )
   }
 }
