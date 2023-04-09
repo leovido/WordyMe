@@ -1,11 +1,12 @@
 import UIKit
+import SwiftUI
 
 public enum ColorGuide {
-  public static let primary = UIColor.hex(0xDBD5B2)
-  public static let primaryAlt = UIColor.hex(0xE7DFC6)
-  public static let secondary = UIColor.hex(0x54426B)
-  public static let secondaryAlt = UIColor.hex(0x623CEA)
-  public static let ternary = UIColor.hex(0xE9F1F7)
+	public static let primary = Color(uiColor: UIColor.hex(0xDBD5B2))
+  public static let primaryAlt = Color(uiColor: UIColor.hex(0xE7DFC6))
+  public static let secondary = Color(uiColor: UIColor.hex(0x54426B))
+  public static let secondaryAlt = Color(uiColor: UIColor.hex(0x623CEA))
+  public static let ternary = Color(uiColor: UIColor.hex(0xE9F1F7))
 }
 
 public extension UIColor {

@@ -33,19 +33,19 @@ public struct MainWordView: View {
 					Image(systemName: "text.bubble")
 						.resizable()
 						.aspectRatio(contentMode: .fit)
-						.foregroundColor(Color(uiColor: ColorGuide.secondary))
+						.foregroundColor(ColorGuide.secondary)
 						.frame(width: 70, height: 70)
 
 					Text("New words")
 						.font(.title)
-						.foregroundColor(Color(uiColor: ColorGuide.secondary))
+						.foregroundColor(ColorGuide.secondary)
 						.bold()
 						.multilineTextAlignment(.center)
 						.padding(.top)
 
 					Text("Start adding new words to improve your vocabulary")
 						.font(.body)
-						.foregroundColor(Color(uiColor: ColorGuide.secondary))
+						.foregroundColor(ColorGuide.secondary)
 						.multilineTextAlignment(.center)
 						.padding(.top, 4)
 				}
@@ -56,11 +56,10 @@ public struct MainWordView: View {
 					ForEach(items.sorted(by: { $0.timestamp! > $1.timestamp! })) { item in
 						NavigationLink {
 							WordDetailView(item: item, viewStore: viewStore)
-								.listRowBackground(Color.red)
 						} label: {
 							Text(item.word ?? "")
 								.fontDesign(.rounded)
-								.foregroundColor(Color(uiColor: ColorGuide.secondary))
+								.foregroundColor(ColorGuide.primaryAlt)
 						}
 					}
 					.onDelete(perform: deleteItems)
@@ -75,7 +74,7 @@ public struct MainWordView: View {
 	public var body: some View {
 		NavigationView {
 			ZStack {
-				Color(uiColor: ColorGuide.primaryAlt)
+				ColorGuide.primaryAlt
 					.edgesIgnoringSafeArea(.all)
 				VStack {
 					WordSectionsView()
@@ -90,7 +89,7 @@ public struct MainWordView: View {
 							.accessibilityLabel(viewStore.state.speechState.isRecording ? "with transcription" : "without transcription")
 					})
 					.background(.clear)
-					.tint(Color(uiColor: ColorGuide.secondary))
+					.tint(ColorGuide.secondary)
 					.onLongPressGesture(minimumDuration: 0.2, perform: {}, onPressingChanged: { isPressing in
 						if isPressing {
 							viewStore.send(.speechFeature(.recordButtonTapped))
@@ -168,7 +167,7 @@ public struct MainWordView: View {
 				}
 			}
 			.navigationTitle(Text("My words"))
-			.tint(Color(uiColor: ColorGuide.secondary))
+			.tint(ColorGuide.secondary)
 		}
 	}
 
@@ -223,16 +222,26 @@ private let itemFormatter: DateFormatter = {
   return formatter
 }()
 
-struct ContentView_Previews: PreviewProvider {
-  //	static let store: StoreOf<WordReducer> = .init(initialState: WordReducer.State(word: .init(word: "Word", phonetic: "phonetic", phonetics: [], origin: nil, meanings: [.init(partOfSpeech: "Part of speech", definitions: [])]), showingAlert: false, newWord: "", isRecording: false, isPressing: false), reducer: WordReducer())
+#if DEBUG
+struct MainWordView_Previews: PreviewProvider {
+	static let store: StoreOf<WordReducer> = .init(
+		initialState: WordReducer.State(),
+		reducer: WordReducer()
+	)
+	
+	static var previews: some View {
+		Group {
+			MainWordView(store: store)
+				.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+				.previewDevice(PreviewDevice(rawValue: "iPhone 14"))
 
-  static var previews: some View {
-    fatalError()
-    //		WithViewStore(store) { viewStore in
-    //			MainWordView(viewStore: viewStore)
-    //				.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-  }
+			MainWordView(store: store)
+				.environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+				.previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
+		}
+	}
 }
+#endif
 
 extension View {
 	func asAnyView() -> AnyView {
