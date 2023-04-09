@@ -17,17 +17,18 @@ struct SpeechRecognitionResult: Equatable {
   var transcriptions: [Transcription]
 }
 
-struct Transcription: Equatable {
-  var formattedString: String
-  var segments: [TranscriptionSegment]
+public struct Transcription: Identifiable, Hashable {
+  public var id: UUID = .init()
+  public var formattedString: String
+  public var segments: [TranscriptionSegment]
 }
 
-struct TranscriptionSegment: Equatable {
-  var alternativeSubstrings: [String]
-  var confidence: Float
-  var duration: TimeInterval
-  var substring: String
-  var timestamp: TimeInterval
+public struct TranscriptionSegment: Hashable {
+  public var alternativeSubstrings: [String]
+  public var confidence: Float
+  public var duration: TimeInterval
+  public var substring: String
+  public var timestamp: TimeInterval
 }
 
 struct VoiceAnalytics: Equatable {

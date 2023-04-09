@@ -25,15 +25,14 @@ extension SpeechClient: DependencyKey {
 }
 
 private actor Speech {
-  var audioEngine: AVAudioEngine?
+  let audioEngine: AVAudioEngine = .init()
   var recognitionTask: SFSpeechRecognitionTask?
   var recognitionContinuation: AsyncThrowingStream<SpeechRecognitionResult, Error>.Continuation?
 
   func finishTask() {
-    audioEngine?.stop()
-    audioEngine?.inputNode.removeTap(onBus: 0)
+    audioEngine.stop()
+    audioEngine.inputNode.removeTap(onBus: 0)
     recognitionTask?.finish()
-    recognitionContinuation?.finish()
   }
 
   func startTask(
@@ -52,11 +51,13 @@ private actor Speech {
         return
       }
 
-      self.audioEngine = AVAudioEngine()
-      let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
+      let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-GB"))!
       self.recognitionTask = speechRecognizer.recognitionTask(with: request) { result, error in
         switch (result, error) {
         case let (.some(result), _):
+
+          dump("yo")
+          dump(result.isFinal)
           continuation.yield(SpeechRecognitionResult(result))
         case (_, .some):
           continuation.finish(throwing: SpeechClient.Failure.taskError)
@@ -74,22 +75,22 @@ private actor Speech {
         _ in
 
           _ = speechRecognizer
-          audioEngine.wrappedValue?.stop()
-          audioEngine.wrappedValue?.inputNode.removeTap(onBus: 0)
+          audioEngine.wrappedValue.stop()
+          audioEngine.wrappedValue.inputNode.removeTap(onBus: 0)
           recognitionTask.wrappedValue?.finish()
       }
 
-      self.audioEngine?.inputNode.installTap(
+      self.audioEngine.inputNode.installTap(
         onBus: 0,
         bufferSize: 1024,
-        format: self.audioEngine?.inputNode.outputFormat(forBus: 0)
+        format: self.audioEngine.inputNode.outputFormat(forBus: 0)
       ) { buffer, _ in
         request.append(buffer)
       }
 
-      self.audioEngine?.prepare()
+      self.audioEngine.prepare()
       do {
-        try self.audioEngine?.start()
+        try self.audioEngine.start()
       } catch {
         continuation.finish(throwing: SpeechClient.Failure.couldntStartAudioEngine)
         return

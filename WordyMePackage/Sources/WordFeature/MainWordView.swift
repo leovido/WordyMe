@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import CoreData
+import StyleGuide
 import SwiftUI
 
 public struct MainWordView: View {
@@ -26,67 +27,138 @@ public struct MainWordView: View {
 
   public var body: some View {
     NavigationView {
-      VStack {
-        List {
-          ForEach(items.sorted(by: { $0.timestamp! > $1.timestamp! })) { item in
-            NavigationLink {
-              WordView(item: item, viewStore: viewStore)
-            } label: {
-              Text(item.word ?? "")
+      ZStack {
+        Color(uiColor: ColorGuide.primaryAlt)
+          .edgesIgnoringSafeArea(.all)
+        VStack {
+          Group {
+            if items.isEmpty {
+              Spacer()
+              VStack {
+                Image(systemName: "text.bubble")
+                  .resizable()
+                  .aspectRatio(contentMode: .fit)
+                  .foregroundColor(Color(uiColor: ColorGuide.secondary))
+                  .frame(width: 70, height: 70)
+
+                Text("New words")
+                  .font(.title)
+                  .foregroundColor(Color(uiColor: ColorGuide.secondary))
+                  .bold()
+                  .multilineTextAlignment(.center)
+                  .padding(.top)
+
+                Text("Start adding new words to improve your vocabulary")
+                  .font(.body)
+                  .foregroundColor(Color(uiColor: ColorGuide.ternary))
+                  .multilineTextAlignment(.center)
+                  .padding(.top, 4)
+              }
+              Spacer()
+
+            } else {
+              List {
+                ForEach(items.sorted(by: { $0.timestamp! > $1.timestamp! })) { item in
+                  NavigationLink {
+                    WordDetailView(item: item, viewStore: viewStore)
+                      .listRowBackground(Color.red)
+                  } label: {
+                    Text(item.word ?? "")
+                      .fontDesign(.rounded)
+                      .foregroundColor(Color(uiColor: ColorGuide.secondary))
+                  }
+                }
+                .onDelete(perform: deleteItems)
+                .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .slide))
+              }
+              .scrollContentBackground(.hidden)
+              .listStyle(InsetGroupedListStyle())
             }
           }
-          .onDelete(perform: deleteItems)
-        }
-        .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .slide))
-        .toolbar {
-          ToolbarItem(placement: .navigationBarTrailing) {
-            EditButton()
-          }
-          ToolbarItem {
-            Button(action: {
-              viewStore.send(.addNewItem)
-            }) {
-              Label("Add Item", systemImage: "plus")
+          Spacer()
+
+          Button(action: {
+            haptic(type: .success)
+          }, label: {
+            Image(systemName: "mic.circle")
+              .resizable()
+              .frame(width: 100, height: 100)
+              .accessibilityLabel(viewStore.state.speechState.isRecording ? "with transcription" : "without transcription")
+          })
+          .background(.clear)
+          .tint(Color(uiColor: ColorGuide.secondary))
+          .onLongPressGesture(minimumDuration: 0.2, perform: {}, onPressingChanged: { isPressing in
+            if isPressing {
+              viewStore.send(.speechFeature(.recordButtonTapped))
+            } else {
+              viewStore.send(.speechFeature(.stopTranscribing))
             }
-            .alert("Enter your word", isPresented: viewStore.binding(get: \.showingAlert, send: WordReducer.Action.isAlertPresented)) {
-              TextField("Enter your word", text: viewStore.binding(get: \.newWord, send: WordReducer.Action.setWord))
-              Button("OK", action: {
-                addNewWord(newWord: viewStore.newWord)
-              })
-            } message: {
-              Text("This word will be store in the app.")
+
+            if self.viewStore.state.speechState.isRecording {
+              viewStore.send(.speechFeature(.recordButtonTapped))
+            }
+          })
+          .onChange(of: viewStore.state.newWord) { newValue in
+            addNewWord(newWord: newValue)
+          }
+          .onAppear {
+            viewStore.send(.onAppear)
+          }
+          .sheet(isPresented: viewStore.binding(\.$hasPossibleWords)) {
+            VStack(alignment: .leading) {
+              ScrollView {
+                Text("Possibilities")
+                  .font(.largeTitle)
+                ForEach(viewStore.state.possibleWords) { possibility in
+                  HStack {
+                    Text(possibility.formattedString)
+                      .font(.title)
+
+                    let confidence = possibility.segments.filter {
+                      $0.substring == possibility.formattedString
+                    }
+                    .map(\.confidence)
+                    .first ?? 0
+
+                    let formattedConfidence = String(format: "%0.2f%%", confidence * 100)
+                    Text(formattedConfidence)
+                  }
+                  .padding()
+                }
+              }
             }
           }
-        }
-        .navigationTitle(Text("My words"))
-
-        Button(action: {
-          haptic(type: .success)
-        }, label: {
-          Image(systemName: "mic.circle")
-            .resizable()
-            .frame(width: 100, height: 100)
-            .accessibilityLabel(viewStore.state.speechState.isRecording ? "with transcription" : "without transcription")
-        })
-
-        .background(.clear)
-        .onLongPressGesture(minimumDuration: 0.2, perform: {}, onPressingChanged: { isPressing in
-          if isPressing {
-            viewStore.send(.speechFeature(.recordButtonTapped))
-
-          } else {
-            viewStore.send(.speechFeature(.stopTranscribing))
-          }
-
-          if self.viewStore.state.speechState.isRecording {
-            viewStore.send(.speechFeature(.recordButtonTapped))
-          }
-        })
-        .onChange(of: viewStore.state.newWord) { newValue in
-          addNewWord(newWord: newValue)
         }
       }
+      .toolbar {
+        ToolbarItem(placement: .navigationBarTrailing) {
+          EditButton()
+        }
+        ToolbarItem {
+          Button(action: {
+            viewStore.send(.addNewItem)
+          }) {
+            Label("Add Item", systemImage: "plus")
+          }
+          .alert(
+            "Enter your word",
+            isPresented: viewStore.binding(get: \.showingAlert, send: WordReducer.Action.isAlertPresented)
+          ) {
+            TextField(
+              "Enter your word",
+              text: viewStore.binding(\.$newWord)
+            )
+            Button("OK", action: {
+              addNewWord(newWord: viewStore.newWord)
+            })
+          } message: {
+            Text("This word will be store in the app.")
+          }
+        }
+      }
+      .navigationTitle(Text("My words"))
     }
+    .tint(Color(uiColor: ColorGuide.secondary))
   }
 
   func haptic(type: UINotificationFeedbackGenerator.FeedbackType) {

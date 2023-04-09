@@ -7,6 +7,7 @@ let package = Package(
   name: "WordyMePackage",
   platforms: [
     .iOS("16.1"),
+    .macOS("13"),
   ],
   products: [
     .library(
@@ -22,13 +23,14 @@ let package = Package(
       targets: ["BrainLibraryFeature"]
     ),
     .library(
-      name: "StatsFeature",
-      targets: ["StatsFeature"]
-    ),
-    .library(
       name: "SpeechFeature",
       targets: ["SpeechFeature"]
     ),
+    .library(
+      name: "StyleGuide",
+      targets: ["StyleGuide"]
+    ),
+
   ],
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.52.0"),
@@ -45,6 +47,7 @@ let package = Package(
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         "SpeechFeature",
+        "StyleGuide",
       ],
       resources: [.process("Word.xcdatamodeld")]
     ),
@@ -53,6 +56,7 @@ let package = Package(
       dependencies: [
         "StatsFeature",
         "WordFeature",
+        "StyleGuide",
         .product(name: "Sentry", package: "sentry-cocoa"),
       ]
     ),
@@ -74,6 +78,10 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
       ]
+    ),
+    .target(
+      name: "StyleGuide",
+      dependencies: []
     ),
     .testTarget(
       name: "WordFeatureTests",
