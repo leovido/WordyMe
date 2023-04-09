@@ -11,9 +11,9 @@ final class WordyMePackageTests: XCTestCase {
     // Create a test store with the initial state
     let store = TestStore(
       initialState: WordReducer.State(
-        word: [mock]
+				wordDefinitions: [mock]
       ),
-      reducer: WordReducer.shared
+      reducer: WordReducer()
     ) {
       $0.wordClient.fetchWord = { word in
         [Definition(word: word, phonetic: nil, phonetics: [], origin: nil, meanings: [])]
