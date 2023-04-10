@@ -148,6 +148,8 @@ public struct MainWordView: View {
 				.navigationTitle(Text("My words"))
 				.tint(ColorGuide.secondary)
 			}
+			.navigationTitle(Text("My words"))
+			.tint(ColorGuide.secondary)
 		}
 	}
 
