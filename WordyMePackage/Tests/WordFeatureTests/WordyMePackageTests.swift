@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import XCTest
+import SharedModels
 
 @testable import WordFeature
 
@@ -8,7 +9,6 @@ final class WordyMePackageTests: XCTestCase {
   func testSomething() async {
     let mock = Definition(word: "String", phonetic: nil, phonetics: [], origin: nil, meanings: [])
 
-    // Create a test store with the initial state
     let store = TestStore(
       initialState: WordReducer.State(
 				wordDefinitions: [mock]
@@ -30,4 +30,35 @@ final class WordyMePackageTests: XCTestCase {
       $0.wordDefinitions = [mock]
     }
   }
+	
+	func testPossibleWords() async {
+		let mockWords = [
+			Transcription(
+				formattedString: "Alt",
+				segments: [
+					TranscriptionSegment(
+						alternativeSubstrings: ["Oat", "Oak", "Old"],
+						confidence: 0.50,
+						duration: 1,
+						substring: "",
+						timestamp: 1
+					)
+				]
+			)
+		]
+
+		let store = TestStore(
+			initialState: WordReducer.State(),
+			reducer: WordReducer()
+		) {_ in }
+		
+		await store.send(.possibleWordsFeature(.receivePossibleWords(mockWords))) {
+			$0.possibleWordsFeature.possibleWords = mockWords
+		}
+		
+		await store.receive(.possibleWordsFeature(.didReceiveNewWords)) {
+			$0.hasPossibleWords = true
+			$0.possibleWordsFeature.possibleWords = mockWords
+		}
+	}
 }

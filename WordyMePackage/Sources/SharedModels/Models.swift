@@ -4,23 +4,38 @@ import Speech
 // and so they aren't testable out the box. We define struct versions of those types to make
 // them easier to use and test.
 
-struct SpeechRecognitionMetadata: Equatable {
-  var averagePauseDuration: TimeInterval
-  var speakingRate: Double
-  var voiceAnalytics: VoiceAnalytics?
+public struct SpeechRecognitionMetadata: Equatable {
+	public var averagePauseDuration: TimeInterval
+	public var speakingRate: Double
+	public var voiceAnalytics: VoiceAnalytics?
 }
 
-struct SpeechRecognitionResult: Equatable {
-  var bestTranscription: Transcription
-  var isFinal: Bool
-  var speechRecognitionMetadata: SpeechRecognitionMetadata?
-  var transcriptions: [Transcription]
+public struct SpeechRecognitionResult: Equatable {
+	public var bestTranscription: Transcription
+	public var isFinal: Bool
+	public var speechRecognitionMetadata: SpeechRecognitionMetadata?
+  public var transcriptions: [Transcription]
+	
+	public init(bestTranscription: Transcription,
+							isFinal: Bool,
+							speechRecognitionMetadata: SpeechRecognitionMetadata? = nil,
+							transcriptions: [Transcription]) {
+		self.bestTranscription = bestTranscription
+		self.isFinal = isFinal
+		self.speechRecognitionMetadata = speechRecognitionMetadata
+		self.transcriptions = transcriptions
+	}
 }
 
 public struct Transcription: Identifiable, Hashable {
   public var id: UUID = .init()
   public var formattedString: String
   public var segments: [TranscriptionSegment]
+	
+	public init(formattedString: String, segments: [TranscriptionSegment]) {
+		self.formattedString = formattedString
+		self.segments = segments
+	}
 }
 
 public struct TranscriptionSegment: Hashable {
@@ -29,22 +44,30 @@ public struct TranscriptionSegment: Hashable {
   public var duration: TimeInterval
   public var substring: String
   public var timestamp: TimeInterval
+	
+	public init(alternativeSubstrings: [String], confidence: Float, duration: TimeInterval, substring: String, timestamp: TimeInterval) {
+		self.alternativeSubstrings = alternativeSubstrings
+		self.confidence = confidence
+		self.duration = duration
+		self.substring = substring
+		self.timestamp = timestamp
+	}
 }
 
-struct VoiceAnalytics: Equatable {
-  var jitter: AcousticFeature
-  var pitch: AcousticFeature
-  var shimmer: AcousticFeature
-  var voicing: AcousticFeature
+public struct VoiceAnalytics: Equatable {
+	public var jitter: AcousticFeature
+	public var pitch: AcousticFeature
+	public var shimmer: AcousticFeature
+	public var voicing: AcousticFeature
 }
 
-struct AcousticFeature: Equatable {
-  var acousticFeatureValuePerFrame: [Double]
-  var frameDuration: TimeInterval
+public struct AcousticFeature: Equatable {
+	public var acousticFeatureValuePerFrame: [Double]
+	public var frameDuration: TimeInterval
 }
 
 extension SpeechRecognitionMetadata {
-  init(_ speechRecognitionMetadata: SFSpeechRecognitionMetadata) {
+  public init(_ speechRecognitionMetadata: SFSpeechRecognitionMetadata) {
     averagePauseDuration = speechRecognitionMetadata.averagePauseDuration
     speakingRate = speechRecognitionMetadata.speakingRate
     voiceAnalytics = speechRecognitionMetadata.voiceAnalytics.map(VoiceAnalytics.init)
@@ -52,7 +75,7 @@ extension SpeechRecognitionMetadata {
 }
 
 extension SpeechRecognitionResult {
-  init(_ speechRecognitionResult: SFSpeechRecognitionResult) {
+  public init(_ speechRecognitionResult: SFSpeechRecognitionResult) {
     bestTranscription = Transcription(speechRecognitionResult.bestTranscription)
     isFinal = speechRecognitionResult.isFinal
     speechRecognitionMetadata = speechRecognitionResult.speechRecognitionMetadata

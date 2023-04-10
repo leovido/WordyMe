@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import Dependencies
 import Speech
+import SharedModels
 
 extension SpeechClient: DependencyKey {
   public static var liveValue: Self {
@@ -55,9 +56,6 @@ private actor Speech {
       self.recognitionTask = speechRecognizer.recognitionTask(with: request) { result, error in
         switch (result, error) {
         case let (.some(result), _):
-
-          dump("yo")
-          dump(result.isFinal)
           continuation.yield(SpeechRecognitionResult(result))
         case (_, .some):
           continuation.finish(throwing: SpeechClient.Failure.taskError)

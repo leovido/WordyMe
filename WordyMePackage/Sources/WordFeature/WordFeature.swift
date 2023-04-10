@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import Foundation
 import SpeechFeature
+import PossibleWordsFeature
 
 public struct WordReducer: ReducerProtocol {
   public init() {}
@@ -12,7 +13,7 @@ public struct WordReducer: ReducerProtocol {
     @BindingState public var isLoading: Bool = false
     @BindingState public var newWord: String = ""
     @BindingState public var hasPossibleWords: Bool = false
-    public var possibleWords: [Transcription] = []
+		public var possibleWordsFeature: PossibleWordsReducer.State
     public var speechState: SpeechFeature.State
 
     var phonetic: String {
@@ -39,13 +40,17 @@ public struct WordReducer: ReducerProtocol {
 			words: [String] = [],
       showingAlert: Bool = false,
       newWord: String = "",
-      speechState: SpeechFeature.State = .init()
+			hasPossibleWords: Bool = false,
+      speechState: SpeechFeature.State = .init(),
+			possibleWordsFeature: PossibleWordsReducer.State = .init()
     ) {
       self.wordDefinitions = wordDefinitions
       self.showingAlert = showingAlert
       self.newWord = newWord
+			self.hasPossibleWords = hasPossibleWords
       self.speechState = speechState
 			self.words = words
+			self.possibleWordsFeature = possibleWordsFeature
     }
   }
 
@@ -55,7 +60,8 @@ public struct WordReducer: ReducerProtocol {
     case addNewItem
     case isAlertPresented(Bool)
     case setWord(String)
-    case speechFeature(SpeechFeature.Action)
+		case speechFeature(SpeechFeature.Action)
+		case possibleWordsFeature(PossibleWordsReducer.Action)
     case updateNewWord(String)
     case onAppear
     case binding(BindingAction<State>)
@@ -71,14 +77,28 @@ public struct WordReducer: ReducerProtocol {
     Reduce { state, action in
       struct WordId: Hashable {}
       switch action {
+			case let .possibleWordsFeature(possibleAction):
+				switch possibleAction {
+				case .didClosePossibleWordsSheet:
+					state.hasPossibleWords = false
+					return .none
+				case .didReceiveNewWords:
+					state.hasPossibleWords = true
+					return .none
+				case let .receivePossibleWords(newWords):
+					state.possibleWordsFeature.possibleWords = newWords
+					
+					return .run { send in
+						await send(.possibleWordsFeature(.didReceiveNewWords))
+					}
+				default:
+					return .none
+				}
 			case let .updateCurrentWords(newWords):
 				state.words = newWords
 				
 				return .none
       case .binding:
-        if !state.hasPossibleWords {
-          state.possibleWords.removeAll()
-        }
         return .none
       case .onAppear:
         return .run { send in
@@ -126,10 +146,9 @@ public struct WordReducer: ReducerProtocol {
           return .none
 
         case let .possibleWords(transcriptions):
-          state.possibleWords = transcriptions
-          state.hasPossibleWords = !state.possibleWords.isEmpty
-
-          return .none
+					return .run { send in
+						await send(.possibleWordsFeature(.receivePossibleWords(transcriptions)))
+					}
         default: return .none
         }
       }
@@ -138,5 +157,8 @@ public struct WordReducer: ReducerProtocol {
     Scope(state: \.speechState, action: /Action.speechFeature) {
       SpeechFeature()
     }
+		Scope(state: \.possibleWordsFeature, action: /Action.possibleWordsFeature) {
+			PossibleWordsReducer()
+		}
   }
 }
