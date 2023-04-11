@@ -4,6 +4,7 @@ import SpeechFeature
 import PossibleWordsFeature
 
 public struct WordReducer: ReducerProtocol {
+	
   public init() {}
 
   public struct State: Equatable {
@@ -71,7 +72,8 @@ public struct WordReducer: ReducerProtocol {
   @Dependency(\.speechClient) var speechClient
   @Dependency(\.managedContext) var managedContext
   @Dependency(\.date) var date
-  @Dependency(\.wordClient) var wordClient
+	@Dependency(\.wordClient) var wordClient
+	@Dependency(\.wordNotification) var wordNotification
 
   public var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
@@ -102,15 +104,9 @@ public struct WordReducer: ReducerProtocol {
         return .none
       case .onAppear:
         return .run { send in
-          let values = NotificationCenter.default.publisher(for: Notification.Name("AddNewWord"))
-            .compactMap { notification in
-              notification.object as? String
-            }
-            .values
-
-          for await word in values {
-            await send(.setWord(word))
-          }
+					for await word in await self.wordNotification() {
+						await send(.setWord(word))
+					}
         }
       case let .fetchWord(word):
         state.isLoading = true
@@ -161,4 +157,26 @@ public struct WordReducer: ReducerProtocol {
 			PossibleWordsReducer()
 		}
   }
+}
+
+extension DependencyValues {
+	var wordNotification: @Sendable () async -> AsyncStream<String> {
+		get { self[WordNotification.self] }
+		set { self[WordNotification.self] = newValue }
+	}
+}
+
+private enum WordNotification: DependencyKey {
+	static let liveValue: @Sendable () async -> AsyncStream<String> = {
+		await AsyncStream(
+			NotificationCenter.default
+				.notifications(named: Notification.Name("AddNewWord"))
+				.compactMap { notification in
+					notification.object as? String
+				}
+		)
+	}
+	static let testValue: @Sendable () async -> AsyncStream<String> = unimplemented(
+		#"@Dependency(\.screenshots)"#, placeholder: .finished
+	)
 }

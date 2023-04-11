@@ -6,7 +6,7 @@ import SharedModels
 
 @MainActor
 final class WordyMePackageTests: XCTestCase {
-  func testSomething() async {
+  func testFetchWord() async {
     let mock = Definition(word: "String", phonetic: nil, phonetics: [], origin: nil, meanings: [])
 
     let store = TestStore(
@@ -60,5 +60,27 @@ final class WordyMePackageTests: XCTestCase {
 			$0.hasPossibleWords = true
 			$0.possibleWordsFeature.possibleWords = mockWords
 		}
+	}
+	
+	func testOnAppear() async {
+		let (wordNotification, wordCreated) = AsyncStream<String>.streamWithContinuation()
+
+		let store = TestStore(
+			initialState: WordReducer.State(),
+			reducer: WordReducer()
+		) {
+			$0.wordNotification = { wordNotification }
+		}
+		wordCreated.yield("Testing")
+
+		let task = await store.send(.onAppear)
+		await store.receive(.setWord("Testing")) {
+			$0.newWord = "Testing"
+		}
+
+		await task.cancel()
+		
+		// Simulate a screenshot being taken to show no effects are executed.
+		wordCreated.yield("Testing false")
 	}
 }
