@@ -50,7 +50,7 @@ final class WordyMePackageTests: XCTestCase {
 		let store = TestStore(
 			initialState: WordReducer.State(),
 			reducer: WordReducer()
-		) {_ in }
+		) { _ in }
 		
 		await store.send(.possibleWordsFeature(.receivePossibleWords(mockWords))) {
 			$0.possibleWordsFeature.possibleWords = mockWords
@@ -82,5 +82,16 @@ final class WordyMePackageTests: XCTestCase {
 		
 		// Simulate a screenshot being taken to show no effects are executed.
 		wordCreated.yield("Testing false")
+	}
+	
+	func testPhonetics() async {
+		let store = TestStore(
+			initialState: WordReducer.State(),
+			reducer: WordReducer()
+		)
+		
+		dump(store.state.phonetic)
+		XCTAssertEqual(store.state.phonetic, "[]")
+		XCTAssertTrue(store.state.definitionElements.isEmpty)
 	}
 }

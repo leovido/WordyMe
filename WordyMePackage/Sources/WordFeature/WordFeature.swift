@@ -18,7 +18,8 @@ public struct WordReducer: ReducerProtocol {
     public var speechState: SpeechFeature.State
 
     var phonetic: String {
-      wordDefinitions.compactMap { $0.phonetic }
+      wordDefinitions
+				.compactMap { $0.phonetic }
         .description
     }
 
