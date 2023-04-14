@@ -88,6 +88,13 @@ public struct WordReducer: ReducerProtocol {
 				case .didReceiveNewWords:
 					state.hasPossibleWords = true
 					return .none
+				case.confirmSelection:
+					guard let newWord = state.possibleWordsFeature.selectedWord?.formattedString else {
+						return .none
+					}
+					state.newWord = newWord
+					
+					return .none
 				case let .receivePossibleWords(newWords):
 					state.possibleWordsFeature.possibleWords = newWords
 					

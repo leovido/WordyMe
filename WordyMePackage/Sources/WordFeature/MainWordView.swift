@@ -53,7 +53,7 @@ public struct MainWordView: View {
 						} label: {
 							Text(item.word ?? "")
 								.fontDesign(.rounded)
-								.foregroundColor(ColorGuide.primaryAlt)
+								.foregroundColor(ColorGuide.secondary)
 						}
 					}
 					.onDelete(perform: deleteItems)
@@ -209,7 +209,7 @@ struct MainWordView_Previews: PreviewProvider {
 	static let store: StoreOf<WordReducer> = .init(
 		initialState: WordReducer.State(words: ["Sample"], hasPossibleWords: true, possibleWordsFeature: .init(possibleWords: [.init(formattedString: "Demo", segments: [
 			.init(alternativeSubstrings: ["Alternative"], confidence: 0.78, duration: 1, substring: "", timestamp: 1)
-		])])),
+		])], selectedWord: nil)),
 		reducer: WordReducer()
 	)
 	
