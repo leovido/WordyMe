@@ -19,7 +19,7 @@ public struct MainWordView: View {
     self.store = store
   }
 
-  private func WordSectionsView(viewStore: ViewStore<WordReducer.State, WordReducer.Action>) -> some View {
+  private func wordSectionsView(viewStore: ViewStore<WordReducer.State, WordReducer.Action>) -> some View {
     Group {
       if items.isEmpty {
         Spacer()
@@ -72,7 +72,7 @@ public struct MainWordView: View {
           ColorGuide.primaryAlt
             .edgesIgnoringSafeArea(.all)
           VStack {
-            WordSectionsView(viewStore: viewStore)
+            wordSectionsView(viewStore: viewStore)
             Spacer()
 
             Button(action: {
@@ -81,7 +81,7 @@ public struct MainWordView: View {
               Image(systemName: "mic.circle")
                 .resizable()
                 .frame(width: 100, height: 100)
-                .accessibilityLabel(viewStore.state.speechState.isRecording ? "with transcription" : "without transcription")
+                .accessibilityLabel("Record button")
             })
             .background(.clear)
             .tint(ColorGuide.secondary)
@@ -173,8 +173,6 @@ public struct MainWordView: View {
       do {
         try viewContext.save()
       } catch {
-        // Replace this implementation with code to handle the error appropriately.
-        // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         let nsError = error as NSError
         fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
       }
@@ -188,8 +186,6 @@ public struct MainWordView: View {
       do {
         try viewContext.save()
       } catch {
-        // Replace this implementation with code to handle the error appropriately.
-        // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         let nsError = error as NSError
         fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
       }
@@ -207,9 +203,22 @@ private let itemFormatter: DateFormatter = {
 #if DEBUG
   struct MainWordView_Previews: PreviewProvider {
     static let store: StoreOf<WordReducer> = .init(
-      initialState: WordReducer.State(words: ["Sample"], hasPossibleWords: true, possibleWordsFeature: .init(possibleWords: [.init(formattedString: "Demo", segments: [
-        .init(alternativeSubstrings: ["Alternative"], confidence: 0.78, duration: 1, substring: "", timestamp: 1),
-      ])], selectedWord: nil)),
+      initialState: WordReducer.State(
+        words: ["Sample"],
+        hasPossibleWords: true,
+        possibleWordsFeature: .init(
+          possibleWords: [
+            .init(formattedString: "Demo",
+                  segments: [
+                    .init(alternativeSubstrings: ["Alternative"],
+                          confidence: 0.78,
+                          duration: 1,
+                          substring: "",
+                          timestamp: 1),
+                  ]),
+          ], selectedWord: nil
+        )
+      ),
       reducer: WordReducer()
     )
 

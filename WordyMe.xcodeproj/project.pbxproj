@@ -267,7 +267,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B93DC42D29BAEBB600D08CAF /* Build configuration list for PBXNativeTarget "WordyMe" */;
 			buildPhases = (
-				B9B8A20129D886DF00BDFFF5 /* ShellScript */,
+				479DD42A29EAEC530024A1BC /* Run Swiftlint */,
+				B9B8A20129D886DF00BDFFF5 /* Run swiftformat */,
 				B93DC3FF29BAEBB500D08CAF /* Sources */,
 				B93DC40029BAEBB500D08CAF /* Frameworks */,
 				B93DC40129BAEBB500D08CAF /* Resources */,
@@ -419,7 +420,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B9B8A20129D886DF00BDFFF5 /* ShellScript */ = {
+		479DD42A29EAEC530024A1BC /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint . autocorrect\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		B9B8A20129D886DF00BDFFF5 /* Run swiftformat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -429,13 +448,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Run swiftformat";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n# swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\n# swiftformat .\n";
+			shellScript = "# cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n# swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\nswiftformat .\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

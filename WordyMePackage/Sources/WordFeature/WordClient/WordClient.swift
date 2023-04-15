@@ -12,7 +12,7 @@ public struct WordClient {
 extension WordClient: DependencyKey {
   public static var liveValue: WordClient {
     WordClient { word in
-      let url = Constants.BASE_URL!.appending(path: word)
+      let url = Constants.baseURL!.appending(path: word)
       let request = URLRequest(url: url)
 
       guard let (data, response) = try? await URLSession.shared.data(for: request),

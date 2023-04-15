@@ -44,14 +44,14 @@ public struct BrainView: View {
 
         ScrollView(.horizontal) {
           HStack {
-            ForEach($data, id: \.self) { d in
+            ForEach($data, id: \.self) { data in
               Button {
                 isTapped.toggle()
               } label: {
                 ZStack {
                   Color.blue
                     .frame(width: 100)
-                  Text(d.wrappedValue.uppercased())
+                  Text(data.wrappedValue.uppercased())
                     .foregroundColor(Color.yellow)
                     .font(.title3)
                     .bold()
