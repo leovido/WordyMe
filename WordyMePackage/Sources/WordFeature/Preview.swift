@@ -5,7 +5,10 @@ import SwiftUI
   struct WordView_Previews: PreviewProvider {
     static let context = PersistenceController.preview.container.viewContext
 
-    static let store: Store<WordReducer.State, WordReducer.Action> = .init(initialState: .init(), reducer: WordReducer())
+    static let store: Store<WordReducer.State, WordReducer.Action> = .init(
+      initialState: .init(),
+      reducer: WordReducer()
+    )
     static let viewStore: ViewStore<WordReducer.State, WordReducer.Action> = .init(store)
 
     static var previews: some View {
