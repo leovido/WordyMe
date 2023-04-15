@@ -28,11 +28,12 @@ public struct SpeechRecognitionResult: Equatable {
 }
 
 public struct Transcription: Identifiable, Hashable {
-  public var id: UUID = .init()
+  public let id: UUID
   public var formattedString: String
   public var segments: [TranscriptionSegment]
 	
-	public init(formattedString: String, segments: [TranscriptionSegment]) {
+	public init(id: UUID = .init(), formattedString: String, segments: [TranscriptionSegment]) {
+		self.id = id
 		self.formattedString = formattedString
 		self.segments = segments
 	}

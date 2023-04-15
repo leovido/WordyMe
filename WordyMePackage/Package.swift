@@ -87,7 +87,8 @@ let package = Package(
 		.testTarget(
 			name: "PossibleWordsTests",
 			dependencies: [
-				"PossibleWordsFeature"
+				"PossibleWordsFeature",
+				.product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
 			]
 		),
     .target(
@@ -115,6 +116,7 @@ let package = Package(
       name: "WordFeatureTests",
       dependencies: [
         "WordFeature",
+				.product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
       ]
     ),
   ]

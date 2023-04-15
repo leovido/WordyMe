@@ -1,0 +1,26 @@
+{
+  "configurations" : [
+    {
+      "id" : "DB3641B2-D8C9-4571-A6EB-F4993CCFB305",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testExecutionOrdering" : "random",
+    "threadSanitizerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "PossibleWordsTests",
+        "name" : "PossibleWordsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

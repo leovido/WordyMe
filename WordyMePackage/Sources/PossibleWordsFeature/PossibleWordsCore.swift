@@ -43,7 +43,6 @@ public struct PossibleWordsReducer: ReducerProtocol {
 			case .confirmSelection:
 				return .run { send in
 					await send(.didClosePossibleWordsSheet)
-					await send(.selectWord(nil))
 				}
 			}
 		}
