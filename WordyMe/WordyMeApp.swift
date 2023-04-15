@@ -46,7 +46,7 @@ struct WordyMeApp: App {
   init() {
     store = Store(
       initialState: AppReducer.State(),
-			reducer: AppReducer()._printChanges()
+      reducer: AppReducer()._printChanges()
     )
 
 //    SentrySDK.start { options in

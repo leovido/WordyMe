@@ -1,10 +1,10 @@
+import AVFoundation
 import ComposableArchitecture
 import Foundation
-import Speech
-import XCTestDynamicOverlay
-import AVFoundation
-import SwiftUI
 import SharedModels
+import Speech
+import SwiftUI
+import XCTestDynamicOverlay
 
 public struct SpeechFeature: ReducerProtocol {
   public init() {}

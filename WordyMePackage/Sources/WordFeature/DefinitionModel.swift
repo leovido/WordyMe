@@ -24,12 +24,12 @@ public struct Meaning: Identifiable, Hashable, Codable {
 
   public let partOfSpeech: String?
   public let definitions: [DefinitionElement]
-	
-	public init(partOfSpeech: String?, definitions: [DefinitionElement]) {
-		self.id = UUID()
-		self.partOfSpeech = partOfSpeech
-		self.definitions = definitions
-	}
+
+  public init(partOfSpeech: String?, definitions: [DefinitionElement]) {
+    id = UUID()
+    self.partOfSpeech = partOfSpeech
+    self.definitions = definitions
+  }
 }
 
 // MARK: - DefinitionElement
@@ -39,14 +39,14 @@ public struct DefinitionElement: Identifiable, Hashable, Codable {
 
   public let definition, example: String?
   public let synonyms, antonyms: [String]
-	
-	public init(definition: String?, example: String?, synonyms: [String], antonyms: [String]) {
-		self.id = UUID()
-		self.definition = definition
-		self.example = example
-		self.synonyms = synonyms
-		self.antonyms = antonyms
-	}
+
+  public init(definition: String?, example: String?, synonyms: [String], antonyms: [String]) {
+    id = UUID()
+    self.definition = definition
+    self.example = example
+    self.synonyms = synonyms
+    self.antonyms = antonyms
+  }
 }
 
 // MARK: - Phonetic

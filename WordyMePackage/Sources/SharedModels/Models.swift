@@ -5,38 +5,39 @@ import Speech
 // them easier to use and test.
 
 public struct SpeechRecognitionMetadata: Equatable {
-	public var averagePauseDuration: TimeInterval
-	public var speakingRate: Double
-	public var voiceAnalytics: VoiceAnalytics?
+  public var averagePauseDuration: TimeInterval
+  public var speakingRate: Double
+  public var voiceAnalytics: VoiceAnalytics?
 }
 
 public struct SpeechRecognitionResult: Equatable {
-	public var bestTranscription: Transcription
-	public var isFinal: Bool
-	public var speechRecognitionMetadata: SpeechRecognitionMetadata?
+  public var bestTranscription: Transcription
+  public var isFinal: Bool
+  public var speechRecognitionMetadata: SpeechRecognitionMetadata?
   public var transcriptions: [Transcription]
-	
-	public init(bestTranscription: Transcription,
-							isFinal: Bool,
-							speechRecognitionMetadata: SpeechRecognitionMetadata? = nil,
-							transcriptions: [Transcription]) {
-		self.bestTranscription = bestTranscription
-		self.isFinal = isFinal
-		self.speechRecognitionMetadata = speechRecognitionMetadata
-		self.transcriptions = transcriptions
-	}
+
+  public init(bestTranscription: Transcription,
+              isFinal: Bool,
+              speechRecognitionMetadata: SpeechRecognitionMetadata? = nil,
+              transcriptions: [Transcription])
+  {
+    self.bestTranscription = bestTranscription
+    self.isFinal = isFinal
+    self.speechRecognitionMetadata = speechRecognitionMetadata
+    self.transcriptions = transcriptions
+  }
 }
 
 public struct Transcription: Identifiable, Hashable {
   public let id: UUID
   public var formattedString: String
   public var segments: [TranscriptionSegment]
-	
-	public init(id: UUID = .init(), formattedString: String, segments: [TranscriptionSegment]) {
-		self.id = id
-		self.formattedString = formattedString
-		self.segments = segments
-	}
+
+  public init(id: UUID = .init(), formattedString: String, segments: [TranscriptionSegment]) {
+    self.id = id
+    self.formattedString = formattedString
+    self.segments = segments
+  }
 }
 
 public struct TranscriptionSegment: Hashable {
@@ -45,38 +46,38 @@ public struct TranscriptionSegment: Hashable {
   public var duration: TimeInterval
   public var substring: String
   public var timestamp: TimeInterval
-	
-	public init(alternativeSubstrings: [String], confidence: Float, duration: TimeInterval, substring: String, timestamp: TimeInterval) {
-		self.alternativeSubstrings = alternativeSubstrings
-		self.confidence = confidence
-		self.duration = duration
-		self.substring = substring
-		self.timestamp = timestamp
-	}
+
+  public init(alternativeSubstrings: [String], confidence: Float, duration: TimeInterval, substring: String, timestamp: TimeInterval) {
+    self.alternativeSubstrings = alternativeSubstrings
+    self.confidence = confidence
+    self.duration = duration
+    self.substring = substring
+    self.timestamp = timestamp
+  }
 }
 
 public struct VoiceAnalytics: Equatable {
-	public var jitter: AcousticFeature
-	public var pitch: AcousticFeature
-	public var shimmer: AcousticFeature
-	public var voicing: AcousticFeature
+  public var jitter: AcousticFeature
+  public var pitch: AcousticFeature
+  public var shimmer: AcousticFeature
+  public var voicing: AcousticFeature
 }
 
 public struct AcousticFeature: Equatable {
-	public var acousticFeatureValuePerFrame: [Double]
-	public var frameDuration: TimeInterval
+  public var acousticFeatureValuePerFrame: [Double]
+  public var frameDuration: TimeInterval
 }
 
-extension SpeechRecognitionMetadata {
-  public init(_ speechRecognitionMetadata: SFSpeechRecognitionMetadata) {
+public extension SpeechRecognitionMetadata {
+  init(_ speechRecognitionMetadata: SFSpeechRecognitionMetadata) {
     averagePauseDuration = speechRecognitionMetadata.averagePauseDuration
     speakingRate = speechRecognitionMetadata.speakingRate
     voiceAnalytics = speechRecognitionMetadata.voiceAnalytics.map(VoiceAnalytics.init)
   }
 }
 
-extension SpeechRecognitionResult {
-  public init(_ speechRecognitionResult: SFSpeechRecognitionResult) {
+public extension SpeechRecognitionResult {
+  init(_ speechRecognitionResult: SFSpeechRecognitionResult) {
     bestTranscription = Transcription(speechRecognitionResult.bestTranscription)
     isFinal = speechRecognitionResult.isFinal
     speechRecognitionMetadata = speechRecognitionResult.speechRecognitionMetadata
@@ -87,7 +88,7 @@ extension SpeechRecognitionResult {
 
 extension Transcription {
   init(_ transcription: SFTranscription) {
-		id = UUID()
+    id = UUID()
     formattedString = transcription.formattedString
     segments = transcription.segments.map(TranscriptionSegment.init)
   }

@@ -1,8 +1,8 @@
 import ComposableArchitecture
 import Dependencies
+import SharedModels
 import Speech
 import XCTestDynamicOverlay
-import SharedModels
 
 public struct SpeechClient {
   var finishTask: @Sendable () async -> Void

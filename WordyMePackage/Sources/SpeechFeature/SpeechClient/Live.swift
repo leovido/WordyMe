@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import Dependencies
-import Speech
 import SharedModels
+import Speech
 
 extension SpeechClient: DependencyKey {
   public static var liveValue: Self {
@@ -72,10 +72,10 @@ private actor Speech {
         ]
         _ in
 
-        _ = speechRecognizer
-        audioEngine.wrappedValue.stop()
-        audioEngine.wrappedValue.inputNode.removeTap(onBus: 0)
-        recognitionTask.wrappedValue?.finish()
+          _ = speechRecognizer
+          audioEngine.wrappedValue.stop()
+          audioEngine.wrappedValue.inputNode.removeTap(onBus: 0)
+          recognitionTask.wrappedValue?.finish()
       }
 
       self.audioEngine.inputNode.installTap(
