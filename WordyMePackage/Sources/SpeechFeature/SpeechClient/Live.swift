@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Dependencies
+import SharedModels
 import Speech
 
 extension SpeechClient: DependencyKey {
@@ -55,9 +56,6 @@ private actor Speech {
       self.recognitionTask = speechRecognizer.recognitionTask(with: request) { result, error in
         switch (result, error) {
         case let (.some(result), _):
-
-          dump("yo")
-          dump(result.isFinal)
           continuation.yield(SpeechRecognitionResult(result))
         case (_, .some):
           continuation.finish(throwing: SpeechClient.Failure.taskError)
@@ -74,10 +72,10 @@ private actor Speech {
         ]
         _ in
 
-        _ = speechRecognizer
-        audioEngine.wrappedValue.stop()
-        audioEngine.wrappedValue.inputNode.removeTap(onBus: 0)
-        recognitionTask.wrappedValue?.finish()
+          _ = speechRecognizer
+          audioEngine.wrappedValue.stop()
+          audioEngine.wrappedValue.inputNode.removeTap(onBus: 0)
+          recognitionTask.wrappedValue?.finish()
       }
 
       self.audioEngine.inputNode.installTap(

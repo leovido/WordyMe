@@ -1,8 +1,8 @@
-import UIKit
 import SwiftUI
+import UIKit
 
 public enum ColorGuide {
-	public static let primary = Color(uiColor: UIColor.hex(0xDBD5B2))
+  public static let primary = Color(uiColor: UIColor.hex(0xDBD5B2))
   public static let primaryAlt = Color(uiColor: UIColor.hex(0xE7DFC6))
   public static let secondary = Color(uiColor: UIColor.hex(0x54426B))
   public static let secondaryAlt = Color(uiColor: UIColor.hex(0x623CEA))

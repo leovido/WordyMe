@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Dependencies
+import SharedModels
 import Speech
 import XCTestDynamicOverlay
 

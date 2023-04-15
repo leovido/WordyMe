@@ -31,8 +31,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
-      - name: Test WordFeature
+      - name: Test Word feature
         run: xcodebuild build-for-testing test-without-building -scheme WordFeatureTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
+
+      - name: Test PossibleWords feature
+        run: xcodebuild build-for-testing test-without-building -scheme PossibleWordsTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
 
       - name: Save cache
         uses: actions/cache@v2

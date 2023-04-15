@@ -23,6 +23,14 @@ let package = Package(
       targets: ["BrainLibraryFeature"]
     ),
     .library(
+      name: "PossibleWordsFeature",
+      targets: ["PossibleWordsFeature"]
+    ),
+    .library(
+      name: "SharedModels",
+      targets: ["SharedModels"]
+    ),
+    .library(
       name: "SpeechFeature",
       targets: ["SpeechFeature"]
     ),
@@ -42,15 +50,6 @@ let package = Package(
   ],
   targets: [
     .target(name: "BuildTools"),
-    .target(
-      name: "WordFeature",
-      dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        "SpeechFeature",
-        "StyleGuide",
-      ],
-      resources: [.process("Word.xcdatamodeld")]
-    ),
     .target(
       name: "AppFeature",
       dependencies: [
@@ -73,9 +72,29 @@ let package = Package(
       ]
     ),
     .target(
-      name: "SpeechFeature",
+      name: "SharedModels",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+      ]
+    ),
+    .target(
+      name: "PossibleWordsFeature",
+      dependencies: [
+        "SharedModels",
+        "StyleGuide",
+      ]
+    ),
+    .testTarget(
+      name: "PossibleWordsTests",
+      dependencies: [
+        "PossibleWordsFeature",
+        .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+      ]
+    ),
+    .target(
+      name: "SpeechFeature",
+      dependencies: [
+        "SharedModels",
         .product(name: "XCTestDynamicOverlay", package: "xctest-dynamic-overlay"),
       ]
     ),
@@ -83,10 +102,21 @@ let package = Package(
       name: "StyleGuide",
       dependencies: []
     ),
+    .target(
+      name: "WordFeature",
+      dependencies: [
+        "SharedModels",
+        "SpeechFeature",
+        "StyleGuide",
+        "PossibleWordsFeature",
+      ],
+      resources: [.process("Word.xcdatamodeld")]
+    ),
     .testTarget(
       name: "WordFeatureTests",
       dependencies: [
         "WordFeature",
+        .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
       ]
     ),
   ]

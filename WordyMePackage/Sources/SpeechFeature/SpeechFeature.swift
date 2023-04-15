@@ -1,10 +1,10 @@
+import AVFoundation
 import ComposableArchitecture
 import Foundation
+import SharedModels
 import Speech
-import XCTestDynamicOverlay
-
-import AVFoundation
 import SwiftUI
+import XCTestDynamicOverlay
 
 public struct SpeechFeature: ReducerProtocol {
   public init() {}
@@ -60,10 +60,8 @@ public struct SpeechFeature: ReducerProtocol {
           guard status == .authorized
           else { return }
 
-          dump("how many times")
           let request = SFSpeechAudioBufferRecognitionRequest()
           for try await result in await self.speechClient.startTask(request) {
-            dump(result)
             let transcriptions = result.transcriptions
 
             await send(.possibleWords(transcriptions))
