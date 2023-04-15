@@ -87,6 +87,7 @@ extension SpeechRecognitionResult {
 
 extension Transcription {
   init(_ transcription: SFTranscription) {
+		id = UUID()
     formattedString = transcription.formattedString
     segments = transcription.segments.map(TranscriptionSegment.init)
   }
