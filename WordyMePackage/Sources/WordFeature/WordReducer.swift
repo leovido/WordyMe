@@ -184,7 +184,13 @@ private enum WordNotification: DependencyKey {
     )
   }
 
-  static let testValue: @Sendable () async -> AsyncStream<String> = unimplemented(
-    #"@Dependency(\.screenshots)"#, placeholder: .finished
-  )
+  static let testValue: @Sendable () async -> AsyncStream<String> = {
+    await AsyncStream(
+      NotificationCenter.default
+        .notifications(named: Notification.Name("AddNewWord"))
+        .compactMap { notification in
+          notification.object as? String
+        }
+    )
+  }
 }

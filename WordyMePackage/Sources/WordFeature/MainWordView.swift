@@ -83,6 +83,7 @@ public struct MainWordView: View {
                 .frame(width: 100, height: 100)
                 .accessibilityLabel("Record button")
             })
+            .accessibility(label: SwiftUI.Text("Record"))
             .background(.clear)
             .tint(ColorGuide.secondary)
             .onLongPressGesture(minimumDuration: 0.2, perform: {}, onPressingChanged: { isPressing in
@@ -205,33 +206,23 @@ private let itemFormatter: DateFormatter = {
     static let store: StoreOf<WordReducer> = .init(
       initialState: WordReducer.State(
         words: ["Sample"],
-        hasPossibleWords: true,
+        hasPossibleWords: false,
         possibleWordsFeature: .init(
-          possibleWords: [
-            .init(formattedString: "Demo",
-                  segments: [
-                    .init(alternativeSubstrings: ["Alternative"],
-                          confidence: 0.78,
-                          duration: 1,
-                          substring: "",
-                          timestamp: 1),
-                  ]),
-          ], selectedWord: nil
         )
       ),
       reducer: WordReducer()
     )
 
     static var previews: some View {
-      Group {
-        MainWordView(store: store)
-          .previewDevice(PreviewDevice(rawValue: "iPhone 14"))
+//      Group {
+      MainWordView(store: store)
+//          .previewDevice(PreviewDevice(rawValue: "iPhone 14"))
 
-        MainWordView(store: store)
-          .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-          .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
-      }
-      .previewLayout(.sizeThatFits)
+//        MainWordView(store: store)
+//          .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//          .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
+//      }
+        .previewLayout(.sizeThatFits)
     }
   }
 #endif

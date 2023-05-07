@@ -87,6 +87,7 @@ struct WordyMeApp: App {
         }
       }
       .tint(ColorGuide.secondary)
+      .colorInvert()
     }
   }
 }
