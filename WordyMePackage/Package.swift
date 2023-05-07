@@ -11,12 +11,20 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "WordFeature",
-      targets: ["WordFeature"]
-    ),
-    .library(
       name: "AppFeature",
       targets: ["AppFeature"]
+    ),
+    .library(
+      name: "Common",
+      targets: ["Common"]
+    ),
+		.library(
+			name: "FemCycle",
+			targets: ["FemCycle"]
+		),
+    .library(
+      name: "WordFeature",
+      targets: ["WordFeature"]
     ),
     .library(
       name: "BrainLibraryFeature",
@@ -59,6 +67,23 @@ let package = Package(
         .product(name: "Sentry", package: "sentry-cocoa"),
       ]
     ),
+    .target(
+      name: "Common",
+      dependencies: [
+      ]
+    ),
+		.target(
+			name: "FemCycle",
+			dependencies: [
+				.product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+			]
+		),
+		.testTarget(
+			name: "FemCycleTests",
+			dependencies: [
+				"FemCycle"
+			]
+		),
     .target(
       name: "StatsFeature",
       dependencies: [
@@ -105,6 +130,7 @@ let package = Package(
     .target(
       name: "WordFeature",
       dependencies: [
+        "Common",
         "SharedModels",
         "SpeechFeature",
         "StyleGuide",
