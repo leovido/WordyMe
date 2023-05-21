@@ -37,6 +37,9 @@ jobs:
       - name: Test PossibleWords feature
         run: xcodebuild build-for-testing test-without-building -scheme PossibleWordsTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
 
+      - name: Test FinanceComparison feature
+        run: xcodebuild build-for-testing test-without-building -scheme FinanceComparisonTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
+
       - name: Save cache
         uses: actions/cache@v2
         with:
