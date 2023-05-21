@@ -14,12 +14,6 @@ jobs:
       group: ${{ github.head_ref }}
       cancel-in-progress: false
       
-    strategy:
-      matrix:
-        destination:
-          - platform=iOS Simulator,OS=15.0,name=iPhone 12 Pro Max
-          - platform=iOS Simulator,OS=14.0,name=iPhone 11
-          # Add more destination configurations as needed
     steps:
       - uses: actions/checkout@v3
 
