@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FemCycle"
-               BuildableName = "FemCycle"
-               BlueprintName = "FemCycle"
+               BlueprintIdentifier = "FinanceComparison"
+               BuildableName = "FinanceComparison"
+               BlueprintName = "FinanceComparison"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -49,9 +49,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FemCycle"
-            BuildableName = "FemCycle"
-            BlueprintName = "FemCycle"
+            BlueprintIdentifier = "FinanceComparison"
+            BuildableName = "FinanceComparison"
+            BlueprintName = "FinanceComparison"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

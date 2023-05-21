@@ -107,6 +107,6 @@ final class PossibleWordsTests: XCTestCase {
   func testView() {
     let store = Store(initialState: PossibleWordsReducer.State(),
                       reducer: PossibleWordsReducer())
-    let _ = PossibilityView(store: store)
+    _ = PossibilityView(store: store)
   }
 }
