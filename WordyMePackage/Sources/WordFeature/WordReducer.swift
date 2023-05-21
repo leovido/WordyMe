@@ -18,14 +18,14 @@ public struct WordReducer: ReducerProtocol {
 
     var phonetic: String {
       wordDefinitions
-        .compactMap { $0.phonetic }
+        .compactMap(\.phonetic)
         .description
     }
 
     var definitionElements: [DefinitionElement] {
       wordDefinitions
-        .flatMap { $0.meanings }
-        .flatMap { $0.definitions }
+        .flatMap(\.meanings)
+        .flatMap(\.definitions)
     }
 
     public init(

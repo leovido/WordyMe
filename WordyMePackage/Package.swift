@@ -91,15 +91,15 @@ let package = Package(
       name: "FinanceComparison",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-				"StyleGuide"
+        "StyleGuide",
       ]
     ),
-		.testTarget(
-			name: "FinanceComparisonTests",
-			dependencies: [
-				"FinanceComparison",
-			]
-		),
+    .testTarget(
+      name: "FinanceComparisonTests",
+      dependencies: [
+        "FinanceComparison",
+      ]
+    ),
     .target(
       name: "FemCycle",
       dependencies: [
