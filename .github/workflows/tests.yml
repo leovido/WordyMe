@@ -26,7 +26,8 @@ jobs:
       - name: Test ${{ matrix.scheme }} feature
         run: xcodebuild build-for-testing -scheme ${{ matrix.scheme }} -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
 
-  concurrent_builds:    needs: [build]
+  concurrent_builds:    
+    needs: [build]
 
     strategy:
       matrix: 
@@ -38,7 +39,7 @@ jobs:
     concurrency:
       group: ${{ matrix.scheme }}-${{ github.ref }}
       cancel-in-progress: false
-      
+
     runs-on: self-hosted
 
     steps:
