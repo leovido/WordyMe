@@ -6,10 +6,6 @@ on:
 
 jobs:
   build:
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
-
     runs-on: self-hosted
 
     strategy:
@@ -20,18 +16,17 @@ jobs:
           FinanceComparisonTests
         ]
       
+    concurrency:
+      group: ${{ matrix.scheme }}-${{ github.ref }}
+      cancel-in-progress: false
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Test ${{ matrix.scheme }} feature
         run: xcodebuild build-for-testing -scheme ${{ matrix.scheme }} -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
 
-  concurrent_builds:
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
-
-    needs: [build]
+  concurrent_builds:    needs: [build]
 
     strategy:
       matrix: 
@@ -40,7 +35,10 @@ jobs:
           PossibleWordsTests, 
           FinanceComparisonTests
         ]
-
+    concurrency:
+      group: ${{ matrix.scheme }}-${{ github.ref }}
+      cancel-in-progress: false
+      
     runs-on: self-hosted
 
     steps:
