@@ -1,6 +1,7 @@
 import AppFeature
 import BrainLibraryFeature
 import ComposableArchitecture
+import Counter
 import Sentry
 import StyleGuide
 import SwiftUI
@@ -80,13 +81,19 @@ struct WordyMeApp: App {
             Label("Stats", systemImage: "chart.bar")
           }
 
-          BrainView()
-            .tabItem {
-              Label("Brain", systemImage: "books.vertical")
-            }
+          CountView(
+            store: store.scope(
+              state: \.counterState,
+              action: AppReducer.Action.counterFeature
+            )
+          )
+          .tabItem {
+            Label("Brain", systemImage: "books.vertical")
+          }
         }
       }
       .tint(ColorGuide.secondary)
+      .colorInvert()
     }
   }
 }

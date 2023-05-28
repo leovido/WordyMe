@@ -18,14 +18,14 @@ public struct WordReducer: ReducerProtocol {
 
     var phonetic: String {
       wordDefinitions
-        .compactMap { $0.phonetic }
+        .compactMap(\.phonetic)
         .description
     }
 
     var definitionElements: [DefinitionElement] {
       wordDefinitions
-        .flatMap { $0.meanings }
-        .flatMap { $0.definitions }
+        .flatMap(\.meanings)
+        .flatMap(\.definitions)
     }
 
     public init(
@@ -184,7 +184,13 @@ private enum WordNotification: DependencyKey {
     )
   }
 
-  static let testValue: @Sendable () async -> AsyncStream<String> = unimplemented(
-    #"@Dependency(\.screenshots)"#, placeholder: .finished
-  )
+  static let testValue: @Sendable () async -> AsyncStream<String> = {
+    await AsyncStream(
+      NotificationCenter.default
+        .notifications(named: Notification.Name("AddNewWord"))
+        .compactMap { notification in
+          notification.object as? String
+        }
+    )
+  }
 }

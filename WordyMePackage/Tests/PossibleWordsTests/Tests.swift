@@ -17,13 +17,6 @@ final class PossibleWordsTests: XCTestCase {
                   ]),
   ]
 
-  func testSomething() async {
-    let store = TestStore(
-      initialState: PossibleWordsReducer.State(),
-      reducer: PossibleWordsReducer()
-    )
-  }
-
   func testHightlightWord() async {
     let expectedValue = [
       Transcription(formattedString: "Fancy",
@@ -114,6 +107,6 @@ final class PossibleWordsTests: XCTestCase {
   func testView() {
     let store = Store(initialState: PossibleWordsReducer.State(),
                       reducer: PossibleWordsReducer())
-    let view = PossibilityView(store: store)
+    _ = PossibilityView(store: store)
   }
 }

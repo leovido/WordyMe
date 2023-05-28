@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		471EA41529BFE588009A6E4F /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 471EA41429BFE588009A6E4F /* AppFeature */; };
+		4765ABFD2A1AB88A005085F0 /* FinancialMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765ABFC2A1AB88A005085F0 /* FinancialMeApp.swift */; };
+		4765ABFF2A1AB88A005085F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765ABFE2A1AB88A005085F0 /* ContentView.swift */; };
+		4765AC012A1AB88C005085F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4765AC002A1AB88C005085F0 /* Assets.xcassets */; };
+		4765AC042A1AB88C005085F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4765AC032A1AB88C005085F0 /* Preview Assets.xcassets */; };
+		4765AC092A1AB8A5005085F0 /* FinanceComparison in Frameworks */ = {isa = PBXBuildFile; productRef = 4765AC082A1AB8A5005085F0 /* FinanceComparison */; };
 		47A8BA1829D8E023004DD189 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A8BA1729D8E023004DD189 /* Intents.framework */; };
 		47A8BA1B29D8E023004DD189 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A8BA1A29D8E023004DD189 /* IntentHandler.swift */; };
 		47A8BA2329D8E024004DD189 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A8BA2229D8E024004DD189 /* IntentsUI.framework */; };
@@ -71,6 +76,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4765ABFA2A1AB889005085F0 /* FinancialMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinancialMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4765ABFC2A1AB88A005085F0 /* FinancialMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialMeApp.swift; sourceTree = "<group>"; };
+		4765ABFE2A1AB88A005085F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4765AC002A1AB88C005085F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4765AC032A1AB88C005085F0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		47A8BA1629D8E023004DD189 /* WordIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WordIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A8BA1729D8E023004DD189 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		47A8BA1A29D8E023004DD189 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
@@ -94,6 +104,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4765ABF72A1AB889005085F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4765AC092A1AB8A5005085F0 /* FinanceComparison in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		47A8BA1329D8E023004DD189 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -136,6 +154,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4765ABFB2A1AB889005085F0 /* FinancialMe */ = {
+			isa = PBXGroup;
+			children = (
+				4765ABFC2A1AB88A005085F0 /* FinancialMeApp.swift */,
+				4765ABFE2A1AB88A005085F0 /* ContentView.swift */,
+				4765AC002A1AB88C005085F0 /* Assets.xcassets */,
+				4765AC022A1AB88C005085F0 /* Preview Content */,
+			);
+			path = FinancialMe;
+			sourceTree = "<group>";
+		};
+		4765AC022A1AB88C005085F0 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4765AC032A1AB88C005085F0 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		47A8BA1929D8E023004DD189 /* WordIntents */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +209,7 @@
 				B93DC42629BAEBB600D08CAF /* WordyMeUITests */,
 				47A8BA1929D8E023004DD189 /* WordIntents */,
 				47A8BA2429D8E024004DD189 /* WordIntentsUI */,
+				4765ABFB2A1AB889005085F0 /* FinancialMe */,
 				B93DC40429BAEBB500D08CAF /* Products */,
 				B93A268629BCC1280046F648 /* Frameworks */,
 			);
@@ -185,6 +223,7 @@
 				B93DC42329BAEBB600D08CAF /* WordyMeUITests.xctest */,
 				47A8BA1629D8E023004DD189 /* WordIntents.appex */,
 				47A8BA2129D8E024004DD189 /* WordIntentsUI.appex */,
+				4765ABFA2A1AB889005085F0 /* FinancialMe.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -229,6 +268,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4765ABF92A1AB889005085F0 /* FinancialMe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4765AC072A1AB88C005085F0 /* Build configuration list for PBXNativeTarget "FinancialMe" */;
+			buildPhases = (
+				4765ABF62A1AB889005085F0 /* Sources */,
+				4765ABF72A1AB889005085F0 /* Frameworks */,
+				4765ABF82A1AB889005085F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FinancialMe;
+			packageProductDependencies = (
+				4765AC082A1AB8A5005085F0 /* FinanceComparison */,
+			);
+			productName = FinancialMe;
+			productReference = 4765ABFA2A1AB889005085F0 /* FinancialMe.app */;
+			productType = "com.apple.product-type.application";
+		};
 		47A8BA1529D8E023004DD189 /* WordIntents */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47A8BA3529D8E025004DD189 /* Build configuration list for PBXNativeTarget "WordIntents" */;
@@ -267,7 +326,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B93DC42D29BAEBB600D08CAF /* Build configuration list for PBXNativeTarget "WordyMe" */;
 			buildPhases = (
-				B9B8A20129D886DF00BDFFF5 /* ShellScript */,
+				479DD42A29EAEC530024A1BC /* Run Swiftlint */,
+				B9B8A20129D886DF00BDFFF5 /* Run swiftformat */,
 				B93DC3FF29BAEBB500D08CAF /* Sources */,
 				B93DC40029BAEBB500D08CAF /* Frameworks */,
 				B93DC40129BAEBB500D08CAF /* Resources */,
@@ -331,9 +391,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
+					4765ABF92A1AB889005085F0 = {
+						CreatedOnToolsVersion = 14.3;
+					};
 					47A8BA1529D8E023004DD189 = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -373,11 +436,21 @@
 				B93DC42229BAEBB600D08CAF /* WordyMeUITests */,
 				47A8BA1529D8E023004DD189 /* WordIntents */,
 				47A8BA2029D8E024004DD189 /* WordIntentsUI */,
+				4765ABF92A1AB889005085F0 /* FinancialMe */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4765ABF82A1AB889005085F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4765AC042A1AB88C005085F0 /* Preview Assets.xcassets in Resources */,
+				4765AC012A1AB88C005085F0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		47A8BA1429D8E023004DD189 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -419,7 +492,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B9B8A20129D886DF00BDFFF5 /* ShellScript */ = {
+		479DD42A29EAEC530024A1BC /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint . autocorrect\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		B9B8A20129D886DF00BDFFF5 /* Run swiftformat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -429,17 +520,27 @@
 			);
 			inputPaths = (
 			);
+			name = "Run swiftformat";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n# swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\n# swiftformat .\n";
+			shellScript = "# cd BuildTools\nSDKROOT=(xcrun --sdk macosx --show-sdk-path)\n# swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file\nswiftformat .\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4765ABF62A1AB889005085F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4765ABFF2A1AB88A005085F0 /* ContentView.swift in Sources */,
+				4765ABFD2A1AB88A005085F0 /* FinancialMeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		47A8BA1229D8E023004DD189 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -518,6 +619,66 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4765AC052A1AB88C005085F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FinancialMe/Preview Content\"";
+				DEVELOPMENT_TEAM = HL92L2PJSU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.FinancialMe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4765AC062A1AB88C005085F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FinancialMe/Preview Content\"";
+				DEVELOPMENT_TEAM = HL92L2PJSU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.christianleovido.FinancialMe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		47A8BA3329D8E025004DD189 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -885,6 +1046,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4765AC072A1AB88C005085F0 /* Build configuration list for PBXNativeTarget "FinancialMe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4765AC052A1AB88C005085F0 /* Debug */,
+				4765AC062A1AB88C005085F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		47A8BA3229D8E025004DD189 /* Build configuration list for PBXNativeTarget "WordIntentsUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -945,6 +1115,10 @@
 		471EA41429BFE588009A6E4F /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;
+		};
+		4765AC082A1AB8A5005085F0 /* FinanceComparison */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FinanceComparison;
 		};
 		47D3198329BE5E6700F75A20 /* BrainLibraryFeature */ = {
 			isa = XCSwiftPackageProductDependency;

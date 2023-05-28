@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Counter
 import Foundation
 import Sentry
 import StatsFeature
@@ -11,14 +12,17 @@ public struct AppReducer: ReducerProtocol {
     var string: String
     public var wordState: WordReducer.State
     public var statsState: StatsReducer.State
+    public var counterState: CounterReducer.State
 
     public init(string: String = "",
                 wordState: WordReducer.State = .init(),
-                statsState: StatsReducer.State = .init())
+                statsState: StatsReducer.State = .init(),
+                counterState: CounterReducer.State = .init())
     {
       self.string = string
       self.wordState = wordState
       self.statsState = statsState
+      self.counterState = counterState
     }
   }
 
@@ -26,6 +30,7 @@ public struct AppReducer: ReducerProtocol {
     case appDelegate(AppDelegateReducer.Action)
     case wordFeature(WordReducer.Action)
     case statsFeature(StatsReducer.Action)
+    case counterFeature(CounterReducer.Action)
   }
 
   public var body: some ReducerProtocol<State, Action> {
@@ -39,6 +44,8 @@ public struct AppReducer: ReducerProtocol {
         return .none
       case .statsFeature:
         return .none
+      case .counterFeature:
+        return .none
       }
     }
 
@@ -48,6 +55,10 @@ public struct AppReducer: ReducerProtocol {
 
     Scope(state: \.statsState, action: /Action.statsFeature) {
       StatsReducer()
+    }
+
+    Scope(state: \.counterState, action: /Action.counterFeature) {
+      CounterReducer()
     }
   }
 }

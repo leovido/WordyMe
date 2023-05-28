@@ -50,7 +50,7 @@ final class WordyMePackageTests: XCTestCase {
     let store = TestStore(
       initialState: WordReducer.State(),
       reducer: WordReducer()
-    ) { _ in }
+    )
 
     await store.send(.possibleWordsFeature(.receivePossibleWords(mockWords))) {
       $0.possibleWordsFeature.possibleWords = mockWords

@@ -1,3 +1,4 @@
+import Common
 import ComposableArchitecture
 import StyleGuide
 import SwiftUI
@@ -65,28 +66,24 @@ public struct WordDetailView: View {
   }
 }
 
-// struct WordView_Previews: PreviewProvider {
-//	static let context = PersistenceController.preview.container.viewContext
-//
-//	static var previews: some View {
-//		let item = Item(context: context)
-//		item.word = "Word"
-//
-//		return NavigationStack {
-//			WordView(item: item,
-//							 definition: [
-//								Definition(
-//									word: "word",
-//									phonetic: "word",
-//									phonetics: [.init(text: "word",
-//																		audio: nil)],
-//									origin: "origin",
-//									meanings: [.init(partOfSpeech: "part of speech", definitions: [
-//										.init(
-//											definition: " a single distinct meaningful element of speech or writing, used with others (or sometimes alone) to form a sentence and typically shown with a space on either side when written or printed",
-//											example: "I don't like the word ‘unofficial’ | so many words for so few ideas.",
-//											synonyms: ["Synonyms"],
-//											antonyms: ["Antonyms"])])])])
-//		}
-//	}
-// }
+#if DEBUG
+  struct WordDetailView_Previews: PreviewProvider {
+    static let context = PersistenceController.preview.container.viewContext
+
+    static let store: Store<WordReducer.State, WordReducer.Action> = .init(
+      initialState: .init(),
+      reducer: WordReducer()
+    )
+    static let viewStore: ViewStore<WordReducer.State, WordReducer.Action> = .init(store)
+
+    static var previews: some View {
+      let item = Item(context: context)
+      item.word = "Word"
+
+      return NavigationStack {
+        WordDetailView(item: item,
+                       viewStore: viewStore)
+      }
+    }
+  }
+#endif

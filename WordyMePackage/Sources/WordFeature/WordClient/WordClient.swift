@@ -12,18 +12,28 @@ public struct WordClient {
 extension WordClient: DependencyKey {
   public static var liveValue: WordClient {
     WordClient { word in
-      let url = Constants.BASE_URL!.appending(path: word)
+      let url = Constants.baseURL!.appending(path: word)
       let request = URLRequest(url: url)
 
-      guard let (data, response) = try? await URLSession.shared.data(for: request),
-            let response = response as? HTTPURLResponse,
-            (200 ..< 399).contains(response.statusCode),
-            let definition = try? JSONDecoder().decode([Definition].self, from: data)
-      else {
-        return []
-      }
+      do {
+        let (data, response) = try await URLSession.shared.data(for: request)
 
-      return definition
+        guard let response = response as? HTTPURLResponse,
+              (200 ..< 399).contains(response.statusCode)
+        else {
+          return []
+        }
+
+        dump(String(data: data, encoding: .utf8))
+
+        let definition = try JSONDecoder().decode([Definition].self, from: data)
+
+        return definition
+
+      } catch {
+        dump(error)
+      }
+      return []
     }
   }
 }

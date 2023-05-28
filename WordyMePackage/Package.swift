@@ -11,12 +11,28 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "WordFeature",
-      targets: ["WordFeature"]
-    ),
-    .library(
       name: "AppFeature",
       targets: ["AppFeature"]
+    ),
+    .library(
+      name: "Common",
+      targets: ["Common"]
+    ),
+    .library(
+      name: "Counter",
+      targets: ["Counter"]
+    ),
+    .library(
+      name: "FemCycle",
+      targets: ["FemCycle"]
+    ),
+    .library(
+      name: "FinanceComparison",
+      targets: ["FinanceComparison"]
+    ),
+    .library(
+      name: "WordFeature",
+      targets: ["WordFeature"]
     ),
     .library(
       name: "BrainLibraryFeature",
@@ -56,7 +72,44 @@ let package = Package(
         "StatsFeature",
         "WordFeature",
         "StyleGuide",
+        "Counter",
         .product(name: "Sentry", package: "sentry-cocoa"),
+      ]
+    ),
+    .target(
+      name: "Common",
+      dependencies: [
+      ]
+    ),
+    .target(
+      name: "Counter",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+      ]
+    ),
+    .target(
+      name: "FinanceComparison",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        "StyleGuide",
+      ]
+    ),
+    .testTarget(
+      name: "FinanceComparisonTests",
+      dependencies: [
+        "FinanceComparison",
+      ]
+    ),
+    .target(
+      name: "FemCycle",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+      ]
+    ),
+    .testTarget(
+      name: "FemCycleTests",
+      dependencies: [
+        "FemCycle",
       ]
     ),
     .target(
@@ -105,6 +158,7 @@ let package = Package(
     .target(
       name: "WordFeature",
       dependencies: [
+        "Common",
         "SharedModels",
         "SpeechFeature",
         "StyleGuide",

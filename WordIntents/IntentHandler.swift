@@ -21,7 +21,7 @@ class IntentHandler: INExtension, INSendMessageIntentHandling, INSearchForMessag
     // This is the default implementation.  If you want different objects to handle different intents,
     // you can override this and return the handler you want for that particular intent.
 
-    return self
+    self
   }
 
   // MARK: - INSendMessageIntentHandling
@@ -103,15 +103,37 @@ class IntentHandler: INExtension, INSendMessageIntentHandling, INSearchForMessag
       identifier: "identifier",
       content: "I am so excited about SiriKit!",
       dateSent: Date(),
-      sender: INPerson(personHandle: INPersonHandle(value: "sarah@example.com", type: .emailAddress), nameComponents: nil, displayName: "Sarah", image: nil, contactIdentifier: nil, customIdentifier: nil),
-      recipients: [INPerson(personHandle: INPersonHandle(value: "+1-415-555-5555", type: .phoneNumber), nameComponents: nil, displayName: "John", image: nil, contactIdentifier: nil, customIdentifier: nil)]
+      sender: INPerson(
+        personHandle: INPersonHandle(
+          value: "sarah@example.com",
+          type: .emailAddress
+        ),
+        nameComponents: nil,
+        displayName: "Sarah",
+        image: nil,
+        contactIdentifier: nil,
+        customIdentifier: nil
+      ),
+      recipients: [INPerson(
+        personHandle: INPersonHandle(
+          value: "+1-415-555-5555",
+          type: .phoneNumber
+        ),
+        nameComponents: nil,
+        displayName: "John",
+        image: nil,
+        contactIdentifier: nil,
+        customIdentifier: nil
+      )]
     )]
     completion(response)
   }
 
   // MARK: - INSetMessageAttributeIntentHandling
 
-  func handle(intent _: INSetMessageAttributeIntent, completion: @escaping (INSetMessageAttributeIntentResponse) -> Void) {
+  func handle(intent _: INSetMessageAttributeIntent,
+              completion: @escaping (INSetMessageAttributeIntentResponse) -> Void)
+  {
     // Implement your application logic to set the message attribute here.
 
     let userActivity = NSUserActivity(activityType: NSStringFromClass(INSetMessageAttributeIntent.self))
