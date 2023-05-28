@@ -23,19 +23,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Restore cache
-        uses: actions/cache@v2
-        with:
-          path: ~/Library/Caches/org.swift.swiftpm
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
-
       - name: Test ${{ matrix.scheme }} feature
         run: xcodebuild build-for-testing test-without-building -scheme ${{ matrix.scheme }}  -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
 
-      - name: Save cache
-        uses: actions/cache@v2
-        with:
-          path: ~/Library/Caches/org.swift.swiftpm
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+      - name: Slack Webhook for GitHub Actions
+        uses: craftech-io/slack-action@v1
+        env:
+          SLACK_CHANNEL: Christian Ray Leovido
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: 'Notification'
+          SLACK_TITLE: Post Title
+          SLACK_USERNAME: Christian Ray Leovido
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
