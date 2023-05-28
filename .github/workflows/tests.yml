@@ -8,10 +8,6 @@ jobs:
   build:
     runs-on: self-hosted
 
-    concurrency:
-      group: ${{ github.head_ref }}
-      cancel-in-progress: false
-
     strategy:
       matrix: 
         scheme: [
