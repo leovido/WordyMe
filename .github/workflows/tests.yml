@@ -28,11 +28,6 @@ jobs:
 
       - name: Slack Webhook for GitHub Actions
         uses: craftech-io/slack-action@v1
-        env:
-          SLACK_CHANNEL: Christian Ray Leovido
-          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: 'Notification'
-          SLACK_TITLE: Post Title
-          SLACK_USERNAME: Christian Ray Leovido
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()
