@@ -6,6 +6,8 @@ on:
 
 jobs:
   build:
+    concurrency: ci-${{ github.ref }}
+
     runs-on: self-hosted
 
     strategy:
@@ -23,6 +25,8 @@ jobs:
         run: xcodebuild build-for-testing -scheme ${{ matrix.scheme }} -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
 
   concurrent_builds:
+    concurrency: ci-${{ github.ref }}
+
     needs: [build]
 
     strategy:
