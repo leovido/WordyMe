@@ -20,25 +20,9 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Test ${{ matrix.scheme }} feature
-        run: xcodebuild build-for-testing -scheme ${{ matrix.scheme }}  -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
+        run: xcodebuild build-for-testing -scheme ${{ matrix.scheme }} -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
 
       - name: Slack Webhook for GitHub Actions
         uses: craftech-io/slack-action@v1
         with:
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-
-  job1:
-    runs-on: self-hosted
-    needs: build
-
-    steps:
-      - name: Test ${{ matrix.scheme }}
-        run: xcodebuild build-for-testing test-without-building -scheme ${{ matrix.scheme }}  -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
-
-  job2:
-    runs-on: self-hosted
-    needs: job1
-
-    steps:
-      - name: Test ${{ matrix.scheme }}
-        run: xcodebuild build-for-testing test-without-building -scheme ${{ matrix.scheme }}  -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
