@@ -22,6 +22,25 @@ jobs:
       - name: Test ${{ matrix.scheme }} feature
         run: xcodebuild build-for-testing -scheme ${{ matrix.scheme }} -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
 
+  concurrent_builds:
+    needs: [build]
+
+    strategy:
+      matrix: 
+        scheme: [
+          WordFeatureTests, 
+          PossibleWordsTests, 
+          FinanceComparisonTests
+        ]
+
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Test ${{ matrix.scheme }} feature
+        run: xcodebuild test-without-building -scheme ${{ matrix.scheme }} -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
+
       - name: Slack Webhook for GitHub Actions
         uses: craftech-io/slack-action@v1
         with:
