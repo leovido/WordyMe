@@ -6,9 +6,9 @@ on:
 
 jobs:
   build:
+    runs-on: self-hosted
     strategy:
       matrix: 
-        os: [self-hosted]
         scheme: [
           WordFeatureTests, 
           PossibleWordsTests, 
