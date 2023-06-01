@@ -1,41 +1,28 @@
 name: Unit tests
 
 on:
-  push:
-    branches: ['main']
   pull_request:
     branches: ['main']
 
 jobs:
   build:
     runs-on: self-hosted
-    
-    concurrency:
-      group: ${{ github.head_ref }}
-      cancel-in-progress: false
-      
+
+    strategy:
+      matrix: 
+        scheme: [
+          WordFeatureTests, 
+          PossibleWordsTests, 
+          FinanceComparisonTests
+        ]
+
     steps:
       - uses: actions/checkout@v3
 
-      - name: Restore cache
-        uses: actions/cache@v2
+      - name: Test ${{ matrix.scheme }} feature
+        run: xcodebuild build-for-testing test-without-building -scheme ${{ matrix.scheme }} -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max" -quiet
+
+      - name: Slack Webhook for GitHub Actions
+        uses: craftech-io/slack-action@v1
         with:
-          path: ~/Library/Caches/org.swift.swiftpm
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
-
-      - name: Test Word feature
-        run: xcodebuild build-for-testing test-without-building -scheme WordFeatureTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
-
-      - name: Test PossibleWords feature
-        run: xcodebuild build-for-testing test-without-building -scheme PossibleWordsTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
-
-      - name: Test FinanceComparison feature
-        run: xcodebuild build-for-testing test-without-building -scheme FinanceComparisonTests -project WordyMe.xcodeproj -destination "platform=iOS Simulator,name=iPhone 14 Pro Max"
-
-      - name: Save cache
-        uses: actions/cache@v2
-        with:
-          path: ~/Library/Caches/org.swift.swiftpm
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
