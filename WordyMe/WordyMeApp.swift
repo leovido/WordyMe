@@ -49,15 +49,6 @@ struct WordyMeApp: App {
       initialState: AppReducer.State(),
       reducer: AppReducer()._printChanges()
     )
-
-//    SentrySDK.start { options in
-//      options.dsn = "https://edaeff785d8d4f4ea20f5246a847471c@o4504940331728896.ingest.sentry.io/4504940332908544"
-//      options.debug = true // Enabled debug when first installing is always helpful
-//
-//      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-//      // We recommend adjusting this value in production.
-//      options.tracesSampleRate = 1.0
-//    }
   }
 
   @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
@@ -66,7 +57,7 @@ struct WordyMeApp: App {
   var body: some Scene {
     WindowGroup {
       TabView {
-        WithViewStore(store) { _ in
+        WithViewStore(store) { viewStore in
           MainWordView(
             store: store.scope(
               state: \.wordState,
@@ -79,6 +70,9 @@ struct WordyMeApp: App {
           }
           .tabItem {
             Label("Stats", systemImage: "chart.bar")
+          }
+          .onAppear {
+            viewStore.send(.onAppear)
           }
 
           CountView(

@@ -57,6 +57,7 @@ let package = Package(
 
   ],
   dependencies: [
+    .package(url: "https://github.com/DevCycleHQ/ios-client-sdk.git", .upToNextMajor(from: "1.11.2")),
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.52.0"),
     .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git",
              from: "1.11.0"),
@@ -74,6 +75,7 @@ let package = Package(
         "StyleGuide",
         "Counter",
         .product(name: "Sentry", package: "sentry-cocoa"),
+        .product(name: "DevCycle", package: "ios-client-sdk"),
       ]
     ),
     .target(

@@ -175,7 +175,7 @@ extension DependencyValues {
 
 private enum WordNotification: DependencyKey {
   static let liveValue: @Sendable () async -> AsyncStream<String> = {
-    await AsyncStream(
+    AsyncStream(
       NotificationCenter.default
         .notifications(named: Notification.Name("AddNewWord"))
         .compactMap { notification in
@@ -185,7 +185,7 @@ private enum WordNotification: DependencyKey {
   }
 
   static let testValue: @Sendable () async -> AsyncStream<String> = {
-    await AsyncStream(
+    AsyncStream(
       NotificationCenter.default
         .notifications(named: Notification.Name("AddNewWord"))
         .compactMap { notification in

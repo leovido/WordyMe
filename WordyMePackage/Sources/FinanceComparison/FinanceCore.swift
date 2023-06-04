@@ -59,21 +59,21 @@ private enum ExcelFormulas {
   //		return ((-pv * ExcelFormulas.pvif(rate: rate, nper: nper) - fv) / ((1.0 + rate * type) * ExcelFormulas.fvifa(rate: rate, nper: nper)))
   //	}
 
-  static func pow1pm1(x: Double, y: Double) -> Double {
-    (x <= -1) ? pow(1 + x, y) - 1 : exp(y * log(1.0 + x)) - 1
-  }
+//  static func pow1pm1(x: Double, y: Double) -> Double {
+//    (x <= -1) ? pow(1 + x, y) - 1 : exp(y * log(1.0 + x)) - 1
+//  }
+//
+//  static func pow1p(x: Double, y: Double) -> Double {
+//    (abs(x) > 0.5) ? pow(1 + x, y) : exp(y * log(1.0 + x))
+//  }
 
-  static func pow1p(x: Double, y: Double) -> Double {
-    (abs(x) > 0.5) ? pow(1 + x, y) : exp(y * log(1.0 + x))
-  }
-
-  static func pvif(rate: Double, nper: Double) -> Double {
-    ExcelFormulas.pow1p(x: rate, y: nper)
-  }
-
-  static func fvifa(initial _: Double, rate: Double, nper: Double) -> Double {
-    (rate == 0) ? nper : ExcelFormulas.pow1pm1(x: rate, y: nper) / rate
-  }
+//  static func pvif(rate: Double, nper: Double) -> Double {
+//    ExcelFormulas.pow1p(x: rate, y: nper)
+//  }
+//
+//  static func fvifa(initial _: Double, rate: Double, nper: Double) -> Double {
+//    (rate == 0) ? nper : ExcelFormulas.pow1pm1(x: rate, y: nper) / rate
+//  }
 
   //	FV = PV (1 + i)t
   static func fv(presentValue: Double, interestRate: Double, term: Double, years: Double) -> Double {
