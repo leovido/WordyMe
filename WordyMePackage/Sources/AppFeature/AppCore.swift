@@ -35,6 +35,7 @@ public struct AppReducer: ReducerProtocol {
     case wordFeature(WordReducer.Action)
     case statsFeature(StatsReducer.Action)
     case counterFeature(CounterReducer.Action)
+    case financeFeature(FinanceComparisonReducer.Action)
     case onAppear
   }
 

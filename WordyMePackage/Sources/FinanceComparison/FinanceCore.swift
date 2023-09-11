@@ -5,14 +5,17 @@ public struct FinanceComparisonReducer: ReducerProtocol {
   public init() {}
 
   public struct State: Equatable {
+		@BindingState public var isFeatureFlagOn: Bool
     @BindingState public var initial: Double
     @BindingState public var initialString: String
     @BindingState public var monthlyPayments: Double
     @BindingState public var years: UInt8
     @BindingState public var interestRate: Double
     @BindingState public var futureValue: Double?
+    @BindingState public var totalInterestEarned: Double = 0
 
-    public init(initial: Double, monthlyPayments: Double, years: UInt8, interestRate: Double, futureValue: Double? = nil) {
+		public init(isFeatureFlagOn: Bool = false, initial: Double, monthlyPayments: Double, years: UInt8, interestRate: Double, futureValue: Double? = nil) {
+			self.isFeatureFlagOn = isFeatureFlagOn
       self.initial = initial
       initialString = initial.description
       self.monthlyPayments = monthlyPayments
@@ -26,6 +29,7 @@ public struct FinanceComparisonReducer: ReducerProtocol {
     case futureValue
     case presentValue
     case paymentsNeededPerMonth
+		case calculateInterestEarned
     case binding(BindingAction<State>)
   }
 
@@ -43,7 +47,16 @@ public struct FinanceComparisonReducer: ReducerProtocol {
                                              term: state.monthlyPayments,
                                              years: Double(state.years))
 
-        return .none
+				return .run { send in
+					await send(.calculateInterestEarned)
+				}
+			case .calculateInterestEarned:
+				guard let futureValue = state.futureValue else {
+					return .none
+				}
+				state.totalInterestEarned = futureValue - state.initial
+				
+				return .none
       case .presentValue:
         fatalError()
       case .paymentsNeededPerMonth:
